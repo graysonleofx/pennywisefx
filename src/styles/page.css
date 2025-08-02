@@ -1,0 +1,1311 @@
+#toot{
+  --text-clr: #fff;
+  --bg: yellowgreen;
+}
+body{
+  background-color: white !important;
+}
+*,  
+*:before,  
+*:after {  
+  box-sizing: inherit;   
+  margin: 0;
+  padding: 0;
+} 
+main{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-evenly;
+  background-color: white !important;
+}
+.container{
+  background-image: url('../assets/finance.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 88vh;
+  position: relative;
+  top: 80px;
+}
+.paticles{
+  position: absolute;
+}
+.overLay{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--text-clr);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  /* padding: 0 40px; */
+  padding: 10px 100px !important;
+  width: 100%;
+}
+.contents{
+  width: 800px;
+}
+h1{
+  font-size: 3rem !important;
+  width: 600px;
+  padding-bottom: 20px;
+}
+.overLay p{
+  font-size: 1.2rem;
+  width: 600px;
+  padding-bottom: 40px;
+}
+
+.abt-section{
+  padding: 100px 60px;  
+  margin-top: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.about-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 100px;
+  /* position: absolute; */
+}
+.abt-img{
+  flex: 1;
+}
+.abt-img img{
+  width: 400px;
+  height: 250px;
+}
+/* .abt-content{
+  /* width: 600px; 
+} */
+.abt-content h2,
+.save-time-contents h2,
+.choose-us-h2,
+.platform-h2,
+.investment-plan-section h2,
+.trusted-section h2{
+  color: #000000;
+  font-family: "Poppins", Sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.abt-content p, 
+.save-time-contents p{
+  font-family: "Poppins", Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  /* text-transform: capitalize; */
+  line-height: 1.5em;
+  color: gray;
+  margin-bottom: 20px;
+  width: 500px;
+}
+
+.abt-content button{
+  background-color: yellowgreen;
+}
+
+.save-time-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* column-gap: 100px; */
+  /* padding: 0 25px !important; */
+}
+.save-time-contents{
+  /* width: 800px; */
+  width: 600px;
+}
+.save-time-section,
+.trusted-section{
+  padding: 100px;  
+  position: relative;
+  background-color: #2222;
+}
+
+.three-div{
+  display: flex;
+  align-items: center;
+}
+.secure-div,
+.multi-currency-div,
+.currency-exchange-div{
+  background-color: #212224;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+  width: 140px;
+  height: 160px;
+  border-radius: 10px;
+  padding: 20px;
+}
+.secure-div .iconStyle,
+.multi-currency-div .iconStyle,
+.currency-exchange-div .iconStyle{
+  margin-bottom: 20px;
+}
+.secure-div p,
+.multi-currency-div p,
+.currency-exchange-div p{
+  color: #FFFFFF;
+  font-family: "Poppins", Sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: 1.5em;
+}
+.save-time-img-div img {
+  width: 780px;
+}
+
+.why-chooseUs-section{
+  padding: 100px;  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.why-chooseUs-section h2 {
+text-align: center;
+}
+.choose-us-p {
+  text-align: center;
+  color: gray;
+  font-family: "Poppins", Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  /* text-transform: capitalize; */
+  line-height: 1.5em;
+  width: 800px;
+  margin-bottom: 20px;
+}
+.why-chooseUs-content{
+  display: grid;
+  grid-template-columns: repeat(2, 400px);
+  row-gap: 20px;
+  column-gap: 20px;
+  text-align: center;
+  margin-bottom: 80px;
+}
+.bank-grade-div,
+.risk-mng-div,
+.award-div,
+.automatic-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.icon-div,
+.risk-icon-div,
+.award-icon-div,
+.automatic-icon-div{
+  background-color: yellowgreen;
+  /* padding: 20px; */
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bank-grade-content h3,
+.risk-mng-content h3,
+.award-content h3,
+.automatic-content h3,
+.sample-step-div h3,
+.basic-plan h3,
+.silver-plan h3,
+.gold-plan h3,
+.platinum-plan h3,
+.currency-coverter-container h3,
+.crypto-h3,
+.local-h3{
+  color: #000000;
+  font-family: "Poppins", Sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.bank-grade-content p,
+.risk-mng-content p,
+.award-content p,
+.automatic-content p,
+.invest-plan-p,
+.basic-plan p,
+.silver-plan p,
+.gold-plan p,
+.platinum-plan p,
+.currency-converter-p,
+.crypto-currency-div p,
+.local-currency-div p{
+  text-align: center;
+  color: gray;
+  font-family: "Poppins", Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  /* text-transform: capitalize; */
+  line-height: 1.5em;
+}
+.tech-img-div{
+  height: 60vh;
+  /* width: 100%; */
+  margin-bottom: 80px;
+  /* position: relative; */
+}
+.tech-img-div img{
+  height: 60vh;
+  width: 100%;
+  object-fit: cover;
+  /* border-radius: 10px; */
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.sample-step-div{
+  background-image: url("../assets/step-bg.png");
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* border-radius: 10px; */
+  height: 70vh;
+  width: 100%;
+  padding-top: 60px;
+}
+.steps-contents-div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 30px;
+  margin-bottom: 40px;
+}
+.step1-img-div,
+.step2-img-div,
+.step3-img-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(232, 243, 209);
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+.step1-p,
+.step2-p,
+.step3-p{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: yellowgreen;
+  padding: 6px 8px;
+  border-radius: 20px;
+  /* color: #fff; */
+  text-overflow: ellipsis;
+  border:3px solid #fff;
+  font-family: sans-serif;
+}
+.step1-contents-div,
+.step2-contents-div,
+.step3-contents-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.first-step,
+.second-step,
+.third-step{
+  color: #54595F;
+  font-family: sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+.sample-step-div button{
+  background-color: yellowgreen;
+}
+
+/* Platform-section  */
+.platform-section,
+.footer-section{
+  background-color: #101112;
+  color: #fff;
+  position: relative;
+  padding: 100px 100px;
+}
+.platform-content-div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+.pltform-content{
+  width: 500px;
+}
+.pltform-content span{
+  color: yellowgreen;
+  font-family: sans-serif;
+  font-size: 12px;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+}
+.pltform-content h2{
+  color: #fff;
+}
+.platforms-div{
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+.plt-frm-img{
+  width: 780px;
+}
+.mac-div,
+.windows-div,
+.android-div{
+  background-color: transparent;
+  border: 1px solid rgb(94, 92, 92);
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mac-div p,
+.windows-div p,
+.android-div p{
+  color: #C4C4C4;
+  font-family: "Poppins", Sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: 1.5em;
+  margin-top: 15px;
+}
+
+/* the investment plans  */ 
+.investment-plan-section{
+  padding: 100px 60px;  
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+.investment-plans{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 60px;
+  margin: 40px 0;
+}
+.basic-plan,
+.silver-plan,
+.gold-plan,
+.platinum-plan{
+  box-shadow: 0 0 10px 0 rgba(131, 52, 52, 0.251);
+  background: #fff;
+  border-radius: 3px;
+  padding: 50px;
+  /* width: 500px; */
+}
+.basic-plan button,
+.silver-plan button,
+.gold-plan button,
+.platinum-plan button{
+  background-color: yellowgreen;
+}
+.investment-plans ul{
+  display: flex;
+  flex-direction: column;
+}
+.investment-plans li,
+.rate-div h3{
+  font-family: "Poppins", Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.5em;
+}
+
+/* currency coverter */
+.currency-coverter{
+  box-shadow: 0 0 10px 0 rgba(131, 52, 52, 0.251);
+  background: #fff;
+  border-radius: 3px;
+  margin-top: 40px;
+}
+.currency-coverter-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 1px solid black;
+}
+.crypto-currency-div,
+.local-currency-div {
+  padding: 30px;
+}
+.crypto-currency-div span,
+.local-currency-div span{
+  border-bottom-style: dotted;
+  cursor: pointer;
+  color: rgb(48, 55, 66);
+}
+.change-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 200px;
+  padding: 20px;
+}
+.change-div p{
+  color: rgb(48, 55, 66);
+  font-family:sans-serif;
+}
+.change-span{
+  color: yellowgreen;
+}
+.volume-span{
+  color: #947600;
+}
+
+/* Trusted Section  */
+.trusted-section2{
+  text-align: center;
+}
+.icorating,
+.coin-clarity,
+.token-market,
+.Ico,
+.coin-market,
+.ico-alert{
+  border: 1px solid #000000;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 130px;
+  width: 130px;
+  padding: 50px 0;
+}
+.token-market-img-div,
+.ico-img-div,
+.coin-market-img-div,
+.ico-alert-img-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.icorating img,
+.coin-clarity img,
+.token-market img,
+.Ico img,
+.coin-market img,
+.ico-alert img{
+  width: 60px;
+  margin-bottom: 20px;
+}
+.rate-div{
+  background-color: #000000;
+  color: #fff;
+  border-radius: 5px;
+  padding:2px 30px;
+}
+.trusted-div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* card container  */
+.card-div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 60px;
+}
+.card-1,
+.card-2,
+.card-3{
+  /* width: 350px;
+  height: 400px; */
+  border: 1px solid #54595F;
+  margin-top: 40px;
+  border-radius: 5px;
+  padding: 50px;
+}
+.card-header{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.card-img-div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.card-img-div img{
+  border-radius: 100%;
+  margin-bottom: 15px;
+}
+.card-img-div p{
+  color: #272727;
+  font-family: "Poppins", Sans-serif;
+}
+.stars{
+  margin-bottom: 20px;
+  display: flex;
+}
+.stars svg{
+  margin-right: 5px;
+}
+.card-body p{
+  text-align: left;
+  font-family: "Poppins", Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  /* text-transform: capitalize; */
+  line-height: 1.5em;
+  color: #54595F;
+}
+.coins-div{
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 60px;
+}
+.coins-div img{
+  width: 200px;
+}
+
+/* Footer section of this page  */
+.footer{
+  background-color: #101112;
+  color: #fff;
+  height: 650px;
+}
+.newslatter-div,
+.footer-div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 60px;
+  border-bottom:1px solid #54595F;
+}
+.sub-newslatter-div h2{
+  color: #FFFFFF;
+  font-family: "Poppins", Sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.sub-newslatter-div p{
+  color: #C2C2C2;
+  font-family: "Roboto", Sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+.newslatter-input-div input{
+  background-color: #FFFFFF00;
+  border: 1px solid #FFFFFF12;
+  /* border-top-right-radius: 0px; */
+  border-radius: 50px 0px 0px 50px;
+  padding: 5px 14px;
+  width: 400px;
+  height: 40px;
+  color: #fff;
+  outline: none;
+}
+.newslatter-input-div button{
+  border-radius: 0px 50px 50px 0px;
+  height: 40px;
+  padding: 5px 14px;
+  margin-bottom: 5px;
+}
+.footer_Dive{
+  padding-top: 60px;
+  align-items: flex-start;
+}
+.footer-logo h2{
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.footer-logo span{
+  color: yellowgreen;
+}
+.footer-logo p{
+  color: #C2C2C2;
+  font-family: "Roboto", Sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5em;
+  width: 350px;
+}
+.footer-nav h3,
+.footer-legal-div h3,
+.footer-contaact-div h3{
+  color: #FFFFFF;
+  font-family: "Poppins", Sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+.footer-contact-info{
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+.footer-nav p,
+.footer-legal-div p{
+  margin-bottom: 10px;
+}
+.footer-nav p a,
+.footer-legal-div a,
+.footer-contaact-div p{
+  color: #C2C2C2;
+  text-decoration: none;
+  font-family: "Poppins", Sans-serif;
+}
+.footer-nav .link:hover,
+.footer-legal-div a:hover{
+  color: #fff;
+}
+
+/* copy right  */
+.copyright{
+  display: flex;
+  align-tracks: center;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+/* contact section  */
+.contact-div{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.contact-div p{
+  width: 800px;
+  font-family: "Helvetica", Sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #7A7A7A;
+  margin-bottom: 30px;
+}
+.contact-div h2{
+  color: #000000;
+  font-family: "Poppins", Sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.5em;
+  margin-bottom: 10px;
+}
+.mail-div{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  fill: #000000;
+  color: #000000;
+  background-color: #ECECEC;
+  border-radius: 50px 50px 50px 50px;
+  line-height: 1;
+  font-size: 15px;
+  padding: 12px 24px;
+  margin-bottom: 30px;
+}
+.mail-div span{
+  color: #000000;
+  font-family: "Poppins", Sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.contact-div form{
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+.contact-div form input,
+.contact-div form textarea{
+  background-color: #ffffff;
+  border: 1px solid #E5E5E5;
+  outline: none;
+  color: #7A7A7A;
+  font-family: Roboto, Sans-serif;
+  font-weight: 400;
+  padding: 5px 14px;
+  font-size: 15px;
+  min-height: 40px;
+  line-height: 1.4;
+  max-width: 100%;
+  width: 600px;
+  border-radius: 10px;
+}
+.contact-div form button{
+  border: none;
+  background-color: yellowgreen;
+}
+.coin-ticker-div{
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #222; 
+  color: #fff;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+/* Responsive Designs  */
+@media (max-width: 768px) {
+  html, 
+  body {  
+    width: 100%;  
+    overflow-x: hidden; /* Prevent horizontal scrolling */  
+    margin: 0; /* Remove default margin */  
+    padding: 0; /* Remove default padding */  
+    box-sizing: border-box; /* Include padding and border in element's total width and height */  
+  } 
+  main{
+    justify-content: space-between;
+    width: 100%; 
+  } 
+  .container {
+    height: 430px; 
+    /* width: 859px; */
+    /* width: 455px; */
+  } 
+
+  .overLay {
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+    width: 100%;
+  }
+  h1,
+  .abt-content h2,
+  .save-time-contents h2,
+  .trs-us-h2 {
+    font-size: 2.6rem;
+    width: 600px;
+    /* padding-bottom: 20px; */
+  }
+  .contents {
+    /* width: 800px; */
+    /* margin-top: 80px; */
+    padding:0;
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+  .overLay p {
+    font-size: 1.2rem;
+    width: 580px;
+  }
+  button:nth-child(2) {
+    background-color: var(--active-clr);
+    display: flex;
+    justify-self: flex-start;
+    align-self: flex-start;
+
+  }
+  .abt-section,
+  .save-time-section,
+  .why-chooseUs-section,
+  .platform-section,
+  .investment-plan-section,
+  .trusted-section2 {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 60px;
+    /* width: 455px; */
+    /* width: 859px; */
+  } 
+  .about-container,
+  .save-time-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 40px;
+    /* width: 600px; */
+    width: 100%;
+  }
+  .abt-img,
+  .pltform-img-div{
+    height: 400px;
+    margin-bottom: 20px;
+  }
+  .abt-img img{
+    width: 100%;
+    height: 400px;
+    align-self: center;
+    justify-self: center
+  }
+  .abt-content,
+  .save-time-contents {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  /* .save-time-container {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: flex-start;
+  } */
+  .abt-content p,
+  .save-time-contents p {
+    font-size: 18px;
+    /* width: 100%; */
+    margin-bottom: 40px;
+    width: 600px;
+  }
+  .bank-grade-content p, 
+  .risk-mng-content p, 
+  .award-content p, 
+  .automatic-content p, 
+  .invest-plan-p, 
+  .basic-plan p, 
+  .silver-plan p, 
+  .gold-plan p, 
+  .platinum-plan p, 
+  .currency-converter-p, 
+  .crypto-currency-div p, 
+  .local-currency-div p {
+    width: 100%;
+    font-size: 14px;
+  }
+  .three-div {
+    align-items: center;
+    /* flex-direction: column; */
+    /* width: 450px; */
+  }
+  .three-div{
+    font-size: 12px;
+  }
+  /* .secure-div, 
+  .multi-currency-div, 
+  .currency-exchange-div,
+  .mac-div, 
+  .windows-div, 
+  .android-div {
+    width: 210px; 
+  } */
+  /* .save-time-img-div {
+    width: 555px;
+  } */
+  .save-time-img-div img {
+    width: 100%;
+    height: 600px;
+  }
+  .choose-us-h2,
+  .investment-plan-section h2{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    font-size: 3rem;
+  }
+  .choose-us-p,
+  .invest-plan-p{
+    width: 100%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 40px;
+  }
+
+  .why-chooseUs-content {
+    grid-template-columns: repeat(2, 360px);
+    justify-self: center;
+    align-self: center;
+    row-gap: 40px;
+  }
+  .tech-img-div img {
+    height: 65vh;
+  }
+  .sample-step-div {
+    height: max-content;
+    width: 100%;
+    padding-top: 50px;
+  }
+  .sample-step-div button {
+    margin-bottom: 30px;
+  }
+  .steps-contents-div {
+    /* flex-direction: column; */
+    row-gap: 20px;
+  }
+  .step1-img-div, 
+  .step2-img-div, 
+  .step3-img-div {
+    height: 100px;
+    width: 100px;
+  }
+  .platform-content-div {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    row-gap: 40px;
+  }
+  .plt-frm-img{
+    width: 600px;
+  }
+  .pltform-content span {
+    font-size: 10px;
+  }
+  .platform-h2 {
+    font-size: 1.8rem;
+    width: 600px;
+  }
+  .platforms-div {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    row-gap: 20px;
+    width: 100%;
+  }
+  .investment-plans {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 40px;
+    width: 100%;
+  }
+  .basic-plan, 
+  .silver-plan, 
+  .gold-plan, 
+  .platinum-plan {
+    width: 500px;
+    padding: 20px;
+  }
+  .investment-plans li{
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: capitalize;
+    line-height: 1.5em;
+    padding: 5px 0;
+  }
+  .currency-coverter-container{
+    width: 100%;
+  }
+  .change-div {
+    justify-content: space-between;
+    column-gap: 90px;
+  }
+  .currency-coverter-div{
+    width: 100%;
+  }
+  .trusted-div {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    row-gap: 20px;
+    column-gap: 20px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .trusted-section h2 {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  .card-div {
+   flex-direction: column;
+   width: 100%;
+   align-items: center;
+   justify-content: center;
+  }
+  .card-1, 
+  .card-2, 
+  .card-3 {
+    width: 500px;
+  }
+  .coins-div {
+    align-items: fcenter;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+    width: 100%;
+  }
+  .coins-div img{
+    width: 120px;
+  }
+
+  /* footer section  */
+  .footer{
+    width: 100%;
+    padding: 60px;
+    height: max-content;
+  }
+  .sub-newslatter-div h2 {
+    font-size: 25px;
+  }
+  .footer-logo {  
+    width: 300px;
+  }
+  .footer-logo h2{
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .footer-logo p {
+    width: 100%;
+  }
+  .footer-div{
+    column-gap: 10px;
+  }
+  .newslatter-div, 
+  .footer-div {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    padding: 0 20px 60px 20px;
+    row-gap: 20px;
+  }
+  .newslatter-input-div input {
+    width: 900px;
+  }
+  .sub-newslatter-div{
+    width: 400px;
+  }
+  .newslatter-input-div{
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+  }
+  .contact-div p {
+    width: 700px;
+    font-size: 1rem;
+  }
+
+  .coin-ticker-div{
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 475px){
+  .overLay {
+    align-items: flex-start;
+    justify-content: flex-start !important;
+    padding: 0 20px !important;
+  }
+  h1, 
+  .abt-content h2, 
+  .save-time-contents h2, 
+  .trs-us-h2 {
+    font-size: 1.6rem !important;
+    width: 310px;
+    padding-bottom: 20px;
+    font-weight: bold !important;
+  }
+  .overLay p {
+    font-size: 1.2rem;
+    width: 320px;
+  }
+  button:nth-child(2) {
+    display: block;
+    width: 100%;
+  }
+  .abt-section, 
+  .save-time-section, 
+  .why-chooseUs-section, 
+  .platform-section, 
+  .investment-plan-section, 
+  .trusted-section2 {
+    padding: 60px 20px;
+  }
+  .about-container, 
+  .save-time-container {
+    width: 100%;
+  }
+  .abt-img img {
+    width: 100%;
+    height: 200px;
+  }
+  .abt-content, 
+  .save-time-contents {
+    width: 100%;
+  }
+  .abt-content p, 
+  .save-time-contents p {
+    font-size: 16px;
+    width: 100%;
+  }
+  .abt-content button {
+    width: 100%;
+  }
+  .secure-div, 
+  .multi-currency-div, 
+  .currency-exchange-div {
+    background-color: #212224;
+    margin: 0.5em;
+    width: 100px;
+    height: 160px;
+    padding: 15px;
+  }
+  .save-time-img-div img {
+    width: 100%;
+    height: 300px;
+  }
+  .why-chooseUs-content {
+    grid-template-columns: repeat(1, 360px);
+  }
+  .plt-frm-img {
+    width: 100%;
+  }
+  .steps-contents-div {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .abt-img, 
+  .pltform-img-div {
+    width: 100%;
+    height: 200px;
+  } 
+  .pltform-content span {
+    font-size: 8px;
+    width: 100%;
+  }
+  .platform-h2 {
+    font-size: 1.6rem;
+    width: 300px;
+  }
+  .basic-plan, 
+  .silver-plan, 
+  .gold-plan, 
+  .platinum-plan {
+    width: 100%;
+    padding: 20px;
+  }
+  .mac-div, .windows-div, .android-div {
+    width: 95px;
+    height: 95px;
+  }
+  .choose-us-h2, 
+  .investment-plan-section h2 {
+    font-size: 2rem;
+  }
+  .currency-coverter{
+    width: 100%;
+  }
+  .currency-coverter-div {
+    width: 100%;
+    /* flex-direction: column; */
+  }
+  .crypto-currency-div, 
+  .local-currency-div {
+    padding: 30px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .change-div {
+    column-gap: 70px;
+  }
+  .trusted-section h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+  .trusted-div {
+    display: grid;
+    grid-template-columns: repeat(2, 130px);
+    row-gap: 20px;
+    width: 100%;
+  }
+  .coins-div {
+    overflow-y: scroll;
+    column-gap: 20px;
+  }
+  .coins-div img {
+    width: 120px;
+  }
+  .card-1, .card-2, .card-3 {
+    width: 100%;
+    padding: 20px;
+  }
+
+  /* footer section */
+  .footer {
+    width: 100%;
+    padding: 60px 10px;
+    height: max-content;
+  }
+  .newslatter-div, 
+  .footer-div {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 10px 40px 10px;
+    row-gap: 20px;
+  }
+  .sub-newslatter-div h2 {
+    font-size: 20px;
+    width: 100%;
+  }
+  .sub-newslatter-div p {
+    width: 100%;
+    font-size: 0.8rem
+  }
+  .newslatter-input-div input {
+    width: 200px;
+  }
+  .newslatter-input-div .resp-sub-btn{
+    width: 135px;
+  }
+  .footer-logo {
+    width: 100%;
+    margin-top: 30px;
+  }
+  .footer-logo p {
+    width: 100%;
+  }
+
+  /* CONTACT PAGE  */
+  .contact-div {
+    width: 100%;
+  }
+  .contact-div p {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+  .contact-div h2 {
+    font-size: 2rem;
+  }
+  .contact-div form {
+    width: 100%;
+  }
+}

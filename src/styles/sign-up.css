@@ -1,0 +1,188 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.sign-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #12263f;
+  /* background: rgba(0, 0, 0, 0.1); */
+  height: max-content;
+}
+.logo{
+  margin-bottom: 20px;
+  width: 150px;
+}
+.logo span{
+  color: yellowgreen;
+}
+.form-container{
+  background-color: white;
+  /* padding: 20px 10px; */
+  width: 450px;
+  border-radius: 5px;
+  padding: 2rem;
+}
+.form-container h3{
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  line-height: 1.5;
+  font-weight: 600;
+  font-size: 24px;
+  color: grey;
+  margin-bottom: 20px;
+}
+
+/* form container div  */
+.form-group{
+  margin-bottom: 20px;
+}
+.form-group label,
+.t-and-c label,
+.sign-in-footer label a{
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  color: rgb(77, 75, 75);
+}
+.foot-logo{
+  width: 90px;
+}
+.text-danger{
+  color: #e43f52 !important;
+}
+.input-group{
+  position: relative;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+.form-group .icon{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 14px;
+}
+.input-group input,
+.input-group select{
+  padding-left: 2.3rem;
+  margin-top: 15px;
+}
+input:focus,
+select:focus{
+  border-color: yellowgreen;
+  outline: none;
+}
+.pl-3r,
+.select-pl{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  padding: 10px 20px !important;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #12263f;
+  border-radius: 6px;
+  border: 1px solid rgb(150, 150, 150);
+  /* margin-bottom: 20px; */
+  font-family: sans-serif;
+}
+.error-msg{
+  margin-bottom: 20px;
+  color: red;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.input-error{
+  border-color: red;
+}
+.input-error:focus{
+  border-color: red;
+}
+
+/* term and condiction  */
+.t-and-c,
+.remember-me{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 10px;
+  margin-bottom: 20px;
+}
+/* Sign in footer section  */
+.sign-in-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* submit button  */
+.submit-btn-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#sign-in,
+#sign-up{
+  padding: 10px 30px !important;
+  width: 100%;
+  background-color: #FE7C0A !important;
+  border-color: #FE7C0A !important;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+/* Already have an account  */
+.already-have-act-div,
+.copyright-div{
+  text-align: center;
+  margin-bottom: 30px;
+}
+.already-have-act-div p,
+.copyright-div p{
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: 400;
+  color: gray;
+}
+.already-have-act-div span a{
+  text-decoration: none;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: rgb(71, 71, 71);
+}
+
+/* Responsive Design  */
+@media screen and (max-width: 768px){
+  .container {
+    bottom: 0;
+  }
+  .form-container {
+    width: 500px;
+  }
+}
+@media screen and (max-width: 600px){
+  .container {
+    bottom: 0;
+  }
+  .form-container {
+    width: 350px;
+  }
+}

@@ -1,0 +1,90 @@
+/* Create a  responsive design that matches our project for investment Calculator component */
+.investment-calculator {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px !important;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.calcu-btn {
+  padding: 15px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: yellowgreen;
+  color: black;
+  cursor: pointer;
+}
+
+.calcu-btn:hover {
+  background-color: #218838;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #28a745;
+  border-radius: 4px;
+  background-color: #e9f7ef;
+}
+
+@media (max-width: 768px) {
+  .investment-calculator-div{
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .investment-calculator {
+    padding: 15px;
+    width: 100%;
+  }
+
+  input[type="number"],
+  select {
+    padding: 6px !important;
+  }
+
+  .calcu-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .investment-calculator-div {
+    width: 100%;
+    padding: 10px;
+  }
+  .investment-calculator {
+    padding: 15px;
+  }
+
+  input[type="number"],
+  select {
+    padding: 6px !important;
+  }
+
+  .calcu-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
