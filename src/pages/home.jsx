@@ -246,36 +246,36 @@ function LandingPage() {
           <div className='investment-plans'>
             <div className='basic-plan'>
               <p>Basic Plan</p>
-              <h3>$200 - $999</h3>
+              <h3>$200 - $2000</h3>
               <button onClick={handleSignUp}>Get Started</button>
               <ul>
-                <li>Daily Profit:  5%</li>
+                <li>Daily Profit:  10%</li>
                 <li>Minimum Possible Deposit:  $200</li>
-                <li>Maximum Possible Deposit:  $999</li>
+                <li>Maximum Possible Deposit:  $2000</li>
                 <li>Duration:   1 Month</li>
               </ul>
             </div>
 
             <div className='silver-plan'>
               <p>Silver Plan</p>
-              <h3>$1,000 - $4,999</h3>
+              <h3>$1,000 - $10,000</h3>
               <button onClick={handleSignUp}>Get Started</button>
               <ul>
-                <li>Weekly Profit:  7%</li>
+                <li>Daily Profit:  15%</li>
                 <li>Minimum Possible Deposit:  $1,000</li>
-                <li>Maximum Possible Deposit:  $4,999</li>
+                <li>Maximum Possible Deposit:  $10,000</li>
                 <li>Duration:   1 Month</li>
               </ul>
             </div>
 
             <div className='gold-plan'>
               <p>Gold Plan</p>
-              <h3>$5,000 - $9,999</h3>
+              <h3>$5,000 - $50,000</h3>
               <button onClick={handleSignUp}>Get Started</button>
               <ul>
-                <li>Monthly Profit:  10%</li>
+                <li>Daily Profit:  20%</li>
                 <li>Minimum Possible Deposit:  $5,000</li>
-                <li>Maximum Possible Deposit:  $9,999</li>
+                <li>Maximum Possible Deposit:  $50,000</li>
                 <li>Duration:   1 Month</li>
               </ul>
             </div>
