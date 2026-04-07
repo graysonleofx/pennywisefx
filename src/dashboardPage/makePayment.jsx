@@ -10,10 +10,10 @@ import { getAuth } from "firebase/auth";
 import '../styles/dashboard.css';
 
 const walletAddresses = { 
-  "Bitcoin": 'bc1qwhu62ucz9k6dzf8aayz2qerqg2tc38c32shjss',
-  'USDT (Trc20)': 'TNw2JhzeSVk95aLyR9zhuJPApuDUTLpPjy',
-  'USDT (Erc20)': 'vKSVKCjwdhRALtTBhowZx2GLnddEQd7tJTSWaM7wM7P',
-  'USDT (Bep20)': 'vKSVKCjwdhRALtTBhowZx2GLnddEQd7tJTSWaM7wM7P',
+  "Bitcoin": '1PJuc8Ve2mhjavDnhAn6ANtrLL7u4GorEq',
+  'USDT (Trc20)': 'TTMFxrsD57TLhtRvXm9yFDtXGFRUDt3sqW',
+  'USDT (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
+  'USDT (Bep20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
   'ETH (Erc20)': '0x4c8e7bde8dc15c1337b6d3b7697df0b2369b01a5'
 }
 const paymentImages = {  
