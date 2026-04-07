@@ -14,7 +14,7 @@ const walletAddresses = {
   'USDT (Trc20)': 'TTMFxrsD57TLhtRvXm9yFDtXGFRUDt3sqW',
   'USDT (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
   'USDT (Bep20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
-  'ETH (Erc20)': '0x4c8e7bde8dc15c1337b6d3b7697df0b2369b01a5'
+  'ETH (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558'
 }
 const paymentImages = {  
   'Bitcoin': '/icons/btc.png',  
