@@ -120,15 +120,15 @@ function SignUpUser(){
                 <input 
                   type="text" 
                   name="username"
-                  {...register("username", {required: true, minLength: 6, maxLength: 10})}
+                  {...register("username", {required: true})}
                   placeholder="Enter Unique Username"
                   onChange = {(e) => setUsername(e.target.value)}  
                   className={errors.username ? 'input-error pl-3r' : 'pl-3r' }
-                  onInput={(e) => {
-                    if(e.target.value.length > 10){
-                      e.target.value = e.target.value.substring(0, 10)
-                    }
-                  }}
+                  // onInput={(e) => {
+                  //   if(e.target.value.length > 10){
+                  //     e.target.value = e.target.value.substring(0, 10)
+                  //   }
+                  // }}
                 />
                 {errors.username && 
                 (<div className="error-msg">
@@ -148,15 +148,15 @@ function SignUpUser(){
                 <input 
                   type="text" 
                   name="fullname"
-                  {...register("fullname", {required: true, minLength: 6, maxLength: 10})}
+                  {...register("fullname", {required: true, minLength: 10})}
                   placeholder="Enter Fullname" 
                   onChange={(e) => setFullname(e.target.value)} 
                   className={errors.fullname ? 'input-error pl-3r' : 'pl-3r' }
-                  onInput={(e) => {
-                    if(e.target.value.length > 10){
-                      e.target.value = e.target.value.substring(0, 10)
-                    }
-                  }}
+                  // onInput={(e) => {
+                  //   if(e.target.value.length > 10){
+                  //     e.target.value = e.target.value.substring(0, 10)
+                  //   }
+                  // }}
                 />
                 {errors.fullname && 
                 (<div className="error-msg">
@@ -189,7 +189,7 @@ function SignUpUser(){
             </div>
             
             {/* Phone number input section  */}
-            <div className="form-group">
+            {/* <div className="form-group">
               <label>Phone Number <span className="text-danger">*</span> </label>
               <div className="input-group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="icon">
@@ -212,7 +212,7 @@ function SignUpUser(){
                   {errors.phoneNumber.type === 'required' ? 'Phone number is required' : 'Invalid Phone number'}
                 </div>)}
               </div>
-            </div>
+            </div> */}
 
             {/* Password input section  */}
             <div className="form-group">
@@ -279,7 +279,7 @@ function SignUpUser(){
                   // className="select-pl"
                   className={errors.country ? 'input-error select-pl' : 'select-pl' }
                   >
-                    <option value="">--Select Country--</option>
+                    <option value="" disabled>--Select Country--</option>
                     {
                       countries.map((item) => {
                         return(
@@ -326,9 +326,9 @@ function SignUpUser(){
             </p>
           </div>
 
-          <div className="copyright-div">
-            <p>© Copyright 2024   Promoters Trading FX   All Rights Reserved.</p>
-          </div>
+          {/* <div className="copyright-div">
+            <p>© Copyright 2024   Pennywise Trading FX   All Rights Reserved.</p>
+          </div> */}
         </div>
       </div>
     </React.Fragment>

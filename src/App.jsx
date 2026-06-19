@@ -17,9 +17,12 @@ import MakePayment from './dashboardPage/makePayment';
 // import WithdrawalPage from './dashboardPage/withdraw';
 import MakeWithdrawalPayment from './dashboardPage/withdrawalPayment';
 import InvestPage from './dashboardPage/invest';
+import AllInvestments from './dashboardPage/all-investment';
 import TransactionPage from './dashboardPage/transations';
 import SupportPage from './dashboardPage/support';
 // import './App.css'
+
+import LiveEvents from './pages/liveEvents';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -46,12 +49,6 @@ function App() {
         setIsLoggedIn(true);  
         setUsername(user.username);
         setEmail(user.email);
-        // setTotalProfit(user.totalProfit);
-        // setTotalDeposit(user.totalDeposit);
-        // setTotalBouns(user.totalBouns);
-        // setTotalInvestment(user.totalInvestment);
-        // setTotalWithdrawal(user.totalWithdrawal);
-        // setTransactionHistory(user.transactions || [])
 
         await fetchUserData(user.uid);
       } else {  
@@ -95,49 +92,6 @@ function App() {
       console.error("Error fetching user data:", error);  
     } 
   }
-
-  // const fetchUserData = async (userId) => {
-  //   try{
-  //     // Fetch user data from your database  
-  //     const userRef = ref(database, `users/${userId}/transactions`);  
-  //     const userDataSnapshot = await get(userRef)
-  //     const userData = userDataSnapshot.val();  
-
-  //     // const userData = {
-  //     //   totalDeposit: userId.totalDeposit,
-  //     //   totalProfit: userId.totalProfit,
-  //     //   totalBouns : userId.totalBouns,
-  //     //   totalInvestment: userId.totalInvestment, 
-  //     //   totalWithdrawal: userId.totalWithdrawal,
-  //     //   transactions: []
-  //     // }
-  //     if (userData){
-  //       setTotalProfit(userData.totalProfit);
-  //       setTotalDeposit(userData.totalDeposit);
-  //       setTotalBouns(userData.totalBouns);
-  //       setTotalInvestment(userData.totalInvestment);
-  //       setTotalWithdrawal(userData.totalWithdrawal);
-  //       setTransactionHistory(userData.transactions || []);
-
-  //       // Fetch transaction details using the transaction ID  
-  //       const transactionId = userData.transactions; 
-
-  //       if(transactionId){
-  //         const transactionPromises = transactionId.map(async(id) => {
-
-  //           const transactionRef = ref(database, `transactions/${id}`);  
-  //           const transactionSnapshot = await get(transactionRef);  
-  //           return transactionSnapshot.val();
-  //         })
-  //         const transactionDetails = await Promise.all(transactionPromises)  
-  //         setTransactionHistory(transactionDetails)
-  //       }
-  //     }
-  //   } catch (error){
-  //     console.error("Error fetching user data:", error);  
-  //   }
-  // }
-
   const resetUserData = () => {
     setUsername(''); 
     setTotalProfit(0);
@@ -253,6 +207,18 @@ function App() {
           }  
         />
         <Route   
+          path='/dashboard/invest/all-investment'   
+          element={  
+            <ProtectedRoute isLoggedIn={isLoggedIn}>  
+              <AllInvestments   
+                username={username}   
+                email={email}   
+                onSignOut={handleSignOut}   
+              />  
+            </ProtectedRoute>  
+          }  
+        />
+        <Route   
           path='/dashboard/transations'   
           element={  
             <ProtectedRoute isLoggedIn={isLoggedIn}>  
@@ -278,8 +244,9 @@ function App() {
           }  
         />
       </Routes>  
-  </div>  
-  )
-}
 
+      <LiveEvents />
+    </div>  
+  );
+};
 export default App

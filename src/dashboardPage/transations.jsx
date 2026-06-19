@@ -53,7 +53,7 @@ function TransactionPage ({username, email, transactions = []}) {
         <div className="dashbord-ccontainer">
           <h2 className="welcome-heading">Transactions on your account
           </h2>
-          <div className="account-container">
+          <div className="account-container" id="transaction-container">
             {transactions && transactions.length  > 0 ? (
               <div className="trans-table">
                 <div>
@@ -107,7 +107,7 @@ function TransactionPage ({username, email, transactions = []}) {
 
           {/* copyright seciton  */}
           <div className="dashboard-copyright-div">
-            <p>All Rights Reserved © Promoters FX 2024</p>
+            <p>All Rights Reserved © Pennywise FX 2025</p>
           </div>
         </div>
       </div>

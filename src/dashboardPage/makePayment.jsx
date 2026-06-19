@@ -12,7 +12,7 @@ import '../styles/dashboard.css';
 const walletAddresses = { 
   "Bitcoin": '1PJuc8Ve2mhjavDnhAn6ANtrLL7u4GorEq',
   'USDT (Trc20)': 'TTMFxrsD57TLhtRvXm9yFDtXGFRUDt3sqW',
-  'USDT (Erc20)' :'0x8d940424813a4658c727c530b0c85e8d916b6558',
+  'USDT (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
   'USDT (Bep20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
   'ETH (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558'
 }
@@ -21,7 +21,7 @@ const paymentImages = {
   'USDT (Trc20)': '/icons/usdt.png',  
   'USDT (Erc20)': '/icons/usdt.png',  
   'USDT (Bep20)': '/icons/usdt.png',  
-  'eth (Erc20)': '/icons/ethrum.png'  
+  'ETH (Erc20)': '/icons/ethrum.png'  
 }; 
 
 function MakePayment ({username, email }) {
@@ -162,7 +162,7 @@ function MakePayment ({username, email }) {
           </div>
           {/* copyright seciton  */}
           <div className="dashboard-copyright-div mk-pm-cpr">
-            <p>All Rights Reserved © Promoters FX 2024</p>
+            <p>All Rights Reserved © Pennywise FX 2025</p>
           </div>
         </div>
       </div>

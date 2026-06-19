@@ -5,7 +5,7 @@ import { ref, set, push, getDatabase, onValue, runTransaction } from 'firebase/d
 import { getAuth } from "firebase/auth";
 
 function MakeWithdrawalPayment ({username, email}) {
-  const [totalDeposit, setTotalDeposit] = useState(0);  
+  const [totalProfit, setTotalProfit] = useState(0); 
   const [withdrawAmount, setWithdrawAmount] = useState('');  
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); 
   const [btcInput, setBtcInput] = useState('');  
@@ -17,11 +17,11 @@ function MakeWithdrawalPayment ({username, email}) {
     const user = auth.currentUser;  
     if (user) {  
       const database = getDatabase()
-      const balanceRef = ref(database, `users/${user.uid}/totalDeposit`);   
+      const balanceRef = ref(database, `users/${user.uid}/totalProfit`);   
        
       const unsubscribe = onValue(balanceRef, (snapshot) => {
         if (snapshot.exists()) {  
-          setTotalDeposit(snapshot.val());  
+          setTotalProfit(snapshot.val());  
         } else {  
           console.log('No data available');  
         }  
@@ -68,22 +68,22 @@ function MakeWithdrawalPayment ({username, email}) {
         return;  
       }  
       
-      if (amount > totalDeposit) {  
+      if (amount > totalProfit ) {  
         setMessage('Insufficient balance.');  
         return;
       }
       // else{
         const userId = auth.currentUser.uid; 
         const database = getDatabase()
-        const balanceRef = ref(database, `users/${userId}/totalDeposit`); 
+        const balanceRef = ref(database, `users/${userId}/totalProfit`); 
   
-        runTransaction(balanceRef, (currentTotalDeposit)=>{
-          if(currentTotalDeposit === null){
+        runTransaction(balanceRef, (currentTotalProfit)=>{
+          if(currentTotalProfit === null){
             // Handle it in case the balance does not exist  
             return null;
           }
-          const newBalance = currentTotalDeposit - amount;  
-          return newBalance >=0 ? newBalance : currentTotalDeposit;
+          const newBalance = currentTotalProfit - amount;  
+          return newBalance >=0 ? newBalance : currentTotalProfit;
         })  
         .then((result) => {  
           if(result !== null) {
@@ -93,7 +93,7 @@ function MakeWithdrawalPayment ({username, email}) {
             const transactionData = {
               amount: amount,
               paymentMethod: selectedPaymentMethod,
-              status: "Success",
+              status: "Pending",
               transaction: 'withdraw',
               date: new Date().toISOString()
 
@@ -210,7 +210,7 @@ function MakeWithdrawalPayment ({username, email}) {
             </div>
               {/* copyright seciton  */}
               <div className="dashboard-copyright-div mk-pm-cpr">
-                <p>All Rights Reserved © Promoters FX 2024</p>
+                <p>All Rights Reserved © Pennywise FX 2025</p>
               </div>
           </div>
         </div>

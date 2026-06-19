@@ -311,7 +311,7 @@ function InvestPage ({username, email}) {
 
           {/* copyright seciton  */}
           <div className="dashboard-copyright-div">
-            <p>All Rights Reserved © Promoters FX 2024</p>
+            <p>All Rights Reserved © Pennywise FX 2025</p>
           </div>
         </div>
       </div>

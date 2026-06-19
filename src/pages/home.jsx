@@ -2,6 +2,8 @@ import React from 'react';
 import { useRef } from 'react';
 import ParticlesComponent from '../component/Particles';
 import NavigationBar from './Navbar';
+import InvestmentCalculator from './investmentCalculator';
+import CryptoTicker from './coinPrieTicker';
 import FooterSection from './footer';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,7 +42,8 @@ function LandingPage() {
                   Pennywise Trading FX is a group of financial and cryptocurrency experts that invest in mining and cryptocurrency trading. We carefully examine the volatility of bitcoin and other crypto currencies, invest and make good profit from our investments.
                 </p>
               </div>
-              <button onClick={handleSignUp}>Get Started</button>
+              <button onClick={handleSignUp}>Get Started
+              </button>
             </div>
           {/* <ParticlesBg/> */}
           </div>
@@ -110,7 +113,7 @@ function LandingPage() {
               <div className='bank-grade-content'>
                 <h3>Bank Grade Security</h3>
                 <p>
-                  Pennywise Trading FX team has extensive industry experience in system security within financial services and in-depth knowledge in blockchain. Profit Point Trading FX multi-layered state-of-the-art security measures to ensure the safety and security of its system.
+                  Pennywise Trading FX team has extensive industry experience in system security within financial services and in-depth knowledge in blockchain. Pennywise Trading FX multi-layered state-of-the-art security measures to ensure the safety and security of its system.
                 </p>
               </div>
             </div>
@@ -227,7 +230,12 @@ function LandingPage() {
               <img src="Clay_Mockup.png" className='plt-frm-img'/>
             </div>
           </div>
+
         </section>
+          <div className='coin-ticker-div'>
+           <CryptoTicker />
+          </div>
+        
 
         <section className='investment-plan-section' ref={planRef} id="plan">
           <h2>Investment Plans</h2>
@@ -238,91 +246,45 @@ function LandingPage() {
           <div className='investment-plans'>
             <div className='basic-plan'>
               <p>Basic Plan</p>
-              <h3>$200 - $999</h3>
+              <h3>$200 - $2000</h3>
               <button onClick={handleSignUp}>Get Started</button>
               <ul>
-                <li>Daily Profit:  5.00%</li>
+                <li>Daily Profit:  10%</li>
                 <li>Minimum Possible Deposit:  $200</li>
-                <li>Maximum Possible Deposit:  $999</li>
-                <li>Duration:   2 Weeks</li>
+                <li>Maximum Possible Deposit:  $2000</li>
+                <li>Duration:   1 Month</li>
               </ul>
             </div>
 
             <div className='silver-plan'>
               <p>Silver Plan</p>
-              <h3>$1,000 - $4,999</h3>
+              <h3>$1,000 - $10,000</h3>
               <button onClick={handleSignUp}>Get Started</button>
               <ul>
-                <li>Weekly Profit:  10.00%</li>
+                <li>Daily Profit:  15%</li>
                 <li>Minimum Possible Deposit:  $1,000</li>
-                <li>Maximum Possible Deposit:  $4,999</li>
+                <li>Maximum Possible Deposit:  $10,000</li>
                 <li>Duration:   1 Month</li>
               </ul>
             </div>
 
             <div className='gold-plan'>
               <p>Gold Plan</p>
-              <h3>$5,000 - $9,999</h3>
+              <h3>$5,000 - $50,000</h3>
               <button onClick={handleSignUp}>Get Started</button>
               <ul>
-                <li>Monthly Profit:  8.00%</li>
+                <li>Daily Profit:  20%</li>
                 <li>Minimum Possible Deposit:  $5,000</li>
-                <li>Maximum Possible Deposit:  $9,999</li>
-                <li>Duration:   3 Months</li>
+                <li>Maximum Possible Deposit:  $50,000</li>
+                <li>Duration:   1 Month</li>
               </ul>
             </div>
-
-            {/* <div className='platinum-plan'>
-              <p>Platinum Plan</p>
-              <h3>$10,000 - $50,000</h3>
-              <button onClick={handleSignUp}>Get Started</button>
-              <ul>
-                <li>Daily Profit:  5.00%</li>
-                <li>Minimum Possible Deposit:  $200</li>
-                <li>Maximum Possible Deposit:  $999</li>
-                <li>Duration:   2 Weeks</li>
-              </ul>
-            </div> */}
 
           </div>
 
-          {/* currency coverter */}
-          
-          {/* <div className="currency-coverter-container">
-            <h3>Currency Converter</h3>
-            <p className='currency-converter-p'>
-              The Promoter Trading FX Currency Converter tool helps you to convert cryptocurrency to your local currency and vice versa
-            </p>
-            <div className='currency-coverter'>
-              <div className='currency-coverter-div'>
-                <div className='crypto-currency-div'>
-                  <h3 className='crypto-h3'>
-                    <span>
-                      BTC
-                    </span>
-                  </h3>
-                  <p>1.00</p>
-                </div>
-                =
-                <div className='local-currency-div'>
-                  <h3 className='local-h3'>
-                    <span>
-                      USD
-                    </span>
-                  </h3>
-                  <p>59,5836.00</p>
-                </div>
-              </div>
-              <div className='change-div'>
-                <div>
-                  <p>Change: <span className='change-span'>0.52%</span></p>
-                  <div><a href="#">⚡</a></div>
-                  <p>Volume: <span className='volume-span'>$4.3B</span></p>
-                </div>
-              </div>
-            </div>
-          </div> */}
-          
+          <div className='investment-calculator-div'>
+            <InvestmentCalculator />
+          </div>
         </section>
 
         <section className='trusted-section trusted-section2'>
@@ -517,6 +479,7 @@ function LandingPage() {
 
       </main>
       <FooterSection aboutRef={aboutRef} homeRef={homeRef} contactRef={contactRef}/>
+
     </>
   )
 }

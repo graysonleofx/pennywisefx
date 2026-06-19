@@ -47,7 +47,7 @@ export default function FooterSection({homeRef, aboutRef, contactRef}){
         <div className="newslatter-div">
           <div className="sub-newslatter-div">
             <h2>Subscribe to Newsletter</h2>
-            <p>Regular Updates From Promoters Trading FX Via Email.</p>
+            <p>Regular Updates From Pennywise Trading FX Via Email.</p>
           </div>
 
           <div className="newslatter-input-div">
@@ -108,7 +108,7 @@ export default function FooterSection({homeRef, aboutRef, contactRef}){
           </div>
         </div>
 
-        <p className="copyright">Copyright © 2024 All rights reserved</p>
+        <p className="copyright">Copyright © 2025 All rights reserved</p>
       </section>
     </>
   )

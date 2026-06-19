@@ -200,8 +200,8 @@ function DashBars({username, email}) {
           <div className="nav-profile">
             {/* <img src="/vite.svg" alt="profile" className="toggle-btn"width='25px' onClick={handleClick}/> */}
 
-            <div className="profile-div">
-              <FontAwesomeIcon icon={faUser} onClick={handleClick} className="toggle-btn" size="9px"/>
+            <div className="profile-div" onClick={handleClick} >
+              <FontAwesomeIcon icon={faUser} className="toggle-btn" size="9px"/>
             </div>
 
             {toggle ? 

@@ -159,9 +159,9 @@ function SignInUser({ onLogin}){
             </p>
           </div>
 
-          <div className="copyright-div">
-            <p>© Copyright 2024   Promoters Trading FX   All Rights Reserved.</p>
-          </div>
+          {/* <div className="copyright-div">
+            <p>© Copyright 2024   Pennywise Trading FX   All Rights Reserved.</p>
+          </div> */}
         </div>
       </div>
     </React.Fragment>

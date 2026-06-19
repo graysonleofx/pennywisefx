@@ -1,10 +1,14 @@
 import React, {useState, useEffect}from 'react';
 import {NavLink, Link, useNavigate} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import '../styles/navbar.css';
+
 function NavigationBar ({homeRef, aboutRef, planRef, contactRef}) {
   const [toggle, setToggle] = useState(false);
-  const navigate = useNavigate()
-  const [activeSection, setActiveSection] = useState('home'); // State to track active section  
+  const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState('home'); // Stat`qqq
+  // e to track active section  
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {  
@@ -37,7 +41,6 @@ function NavigationBar ({homeRef, aboutRef, planRef, contactRef}) {
   const handleClick = () =>{
     setToggle(!toggle)
   }
-
   const handleSignUp = () => {
     navigate('/sign-up');
   } 
@@ -55,7 +58,7 @@ function NavigationBar ({homeRef, aboutRef, planRef, contactRef}) {
   return(
     <header>
       <div className='logo-container'>
-        <img src="brand.png" className="logo"/>
+        <img src="brandd.png" className="logo"/>
         {/* <strong className='logo'>
             PennyWise
           <span>FX</span></strong> */}
@@ -92,13 +95,14 @@ function NavigationBar ({homeRef, aboutRef, planRef, contactRef}) {
 
       <div className='button-container'>
         <Link to='/sign-in'>
-          <button> 
+          <button style={{display: 'flex', alignItems: 'center', columnGap: '10px'}}> 
+            <FontAwesomeIcon icon={ faArrowRightToBracket} />
             Sign In
-            {/* <FontAwesomeIcon icon="fa-solid fa-arrow-right-to-bracket" /> */}
+            
           </button>
         </Link>
 
-          <button onClick={handleSignUp}>Sign up</button>
+        {/* <button onClick={handleSignUp}>Sign up</button> */}
       </div>
 
       <div className="toggle-btn">
@@ -108,7 +112,7 @@ function NavigationBar ({homeRef, aboutRef, planRef, contactRef}) {
 
         {toggle ? 
         
-          <div className="dropdown-menu open">
+          <div className="dropdown-menu open resp-nav">
             <li>
               <NavLink to="/" className='Link' onClick={() => scrollToSection(homeRef)}
               style={{ color: activeSection === 'home' ? 'yellowgreen' : 'white' }}>
@@ -133,7 +137,8 @@ function NavigationBar ({homeRef, aboutRef, planRef, contactRef}) {
                 Contact Us
               </NavLink>
             </li>
-            <li className='rsp-button'>                <button onClick={handleSignIn}> Sign In </button>
+            <li className='rsp-button'>                
+              <button onClick={handleSignIn}> Sign In </button>
               <button onClick={handleSignUp}>Sign Up</button>
             </li>
           </div>

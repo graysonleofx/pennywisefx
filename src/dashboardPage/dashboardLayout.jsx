@@ -6,9 +6,9 @@ import DashBars from "./dash-bar";
 const DashboardLayout = ({ username, email }) => {  
   return (  
     <div className="dashboard-layout">  
-      <DashBars username={username} email={email} />  
+      <DashBars username={username} email={email}/>  
       <div className="content">  
-        <Outlet />  
+      <Outlet />  
       </div>  
     </div>  
   );  

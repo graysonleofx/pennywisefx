@@ -9,10 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faMoneyBillTrendUp, faCoins,
   faMoneyBillAlt, faDatabase,
-  faMoneyCheckAlt , faGift
+  faMoneyCheckAlt , faGift, faArrowUp
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import '../styles/dashboard.css'
+import '../styles.css'
 
 export default function Dashboard({username, totalProfit, totalDeposit, totalBouns, totalInvestment, totalWithdrawal, email}) {
 // export default function Dashboard() {
@@ -29,43 +30,43 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
 
   // const userBalanceListeener = () =>{
 
-    const [accountBalance, setAccountBalance] = useState(0);
-    const [rewardBalance, setRewardBalance] = useState(0);
-    const [profitBalance, setProfitBalance] = useState(0);
-    const [bounsBalance, setBounsBalance] = useState(0);
-    const navigate = useNavigate();
-    const auth = getAuth();
+  const [accountBalance, setAccountBalance] = useState(0);
+  const [rewardBalance, setRewardBalance] = useState(0);
+  const [profitBalance, setProfitBalance] = useState(0);
+  const [bounsBalance, setBounsBalance] = useState(0);
+  const navigate = useNavigate();
+  const auth = getAuth();
 
-    useEffect(() => {
-      const user = auth.currentUser;
+  useEffect(() => {
+    const user = auth.currentUser;
 
-      if (user){
-        const database = getDatabase();
-        const userRef = ref(database, 'users/' + user.uid);
+    if (user){
+      const database = getDatabase();
+      const userRef = ref(database, 'users/' + user.uid);
 
-        // listen for the Profit balance changes
-        onValue(userRef, (snapshot) => {
-          if(snapshot.exists()){
-            const data = snapshot.val();
-            const newProfitBalance = data.totalProfit;
-            const newAccountBalance = data.totalDeposit + data.totalProfit + data.totalInvestment;
-            const newBounsBalance = data.totalProfit;
-            const newRewardBalance = data.totalReward;
+      // listen for the Profit balance changes
+      onValue(userRef, (snapshot) => {
+        if(snapshot.exists()){
+          const data = snapshot.val();
+          const newProfitBalance = data.totalProfit;
+          const newAccountBalance = data.totalDeposit + data.totalProfit + data.totalInvestment;
+          const newBounsBalance = data.totalProfit;
+          const newRewardBalance = data.totalReward;
 
-            // update state 
-            setProfitBalance(newProfitBalance);
-            setAccountBalance(newAccountBalance);
-            setRewardBalance(newRewardBalance)
-            setBounsBalance(newBounsBalance)
+          // update state 
+          setProfitBalance(newProfitBalance);
+          setAccountBalance(newAccountBalance);
+          setRewardBalance(newRewardBalance)
+          setBounsBalance(newBounsBalance)
 
-            // update Account balance in the database
-            update(userRef, {
-              accountBalance: newAccountBalance
-            })
-          }
-        });
-      }
-     }, [auth])
+          // update Account balance in the database
+          update(userRef, {
+            accountBalance: newAccountBalance
+          })
+        }
+      });
+    }
+    }, [auth])
   // }
 
   const handleWithdrawBtn = () => {
@@ -75,7 +76,8 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
     navigate('/dashboard/invest')
   }
   const handleAllInvestBtn = () => {
-    alert('System Busy!!!');
+    alert(`Not Available at the moment \n Please try Again Later!!!`);
+    // navigate('/dashboard/invest/all-investment')
   }
 
   return(
@@ -172,7 +174,7 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
             </div>
           </div>
 
-          <div >
+          <div>
             <div className="balance-card">
               <div className="balance-acc-div">
                 <p className="acc-bal-p">Balance in Account</p>
@@ -200,7 +202,10 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
                 <p className="acc-bal-p">This Month Profit </p>
                 <div className="profit-acc">
                   <h2>{formatCurrency(totalProfit)}</h2>
-                  <p className="profit-per">4.5%</p>
+                  <div className="flex items-center gap-1">
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" color="green"/>
+                    <p className="profit-per">4.5%</p>
+                  </div>
                 </div>
 
                 <div className="available-funds">
@@ -246,7 +251,7 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
 
             {/* copyright seciton  */}
             <div className="dashboard-copyright-div">
-              <p>All Rights Reserved © Pennywise FX 2024</p>
+              <p>All Rights Reserved © Pennywise FX 2025</p>
             </div>
           </div>
         </div>
