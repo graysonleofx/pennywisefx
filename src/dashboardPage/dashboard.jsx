@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import DashBars from "./dash-bar";
 import DashboardLayout from "./dashboardLayout"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
+import candle from '../assets/candle.png';
 import { 
   faMoneyBillTrendUp, faCoins,
   faMoneyBillAlt, faDatabase,
@@ -14,6 +15,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import '../styles/dashboard.css'
 import '../styles.css'
+import CryptoLiveChart from "./CryptoLiveChart";
+
 
 export default function Dashboard({username, totalProfit, totalDeposit, totalBouns, totalInvestment, totalWithdrawal, email}) {
 // export default function Dashboard() {
@@ -92,43 +95,69 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
 
           <div className="Account-holding-div">
             <div className="total-deposit-div">
-              <div className="img-div">
-              <FontAwesomeIcon icon={faCoins } size="lg"/>
-              </div>
               <div>
-                <strong>
-                {formatCurrency(totalDeposit)}</strong>
-                <p className="totals-p"> Total Deposit</p>
+              
+                <div className="img-div">
+                <FontAwesomeIcon icon={faCoins } size="lg"/>
+                </div>
+
+                <div>
+                  <strong>
+                  {formatCurrency(totalDeposit)}</strong>
+                  <p className="totals-p"> Total Deposit</p>
+                </div>
+              </div>
+
+              <div className="candlestick-div" width="100" height="100">
+                <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
             </div>
-
+            
             <div className="total-profit-div">
-              <div className="img-div">
-                <FontAwesomeIcon icon={faMoneyBillAlt} size="lg"/>
-              </div>
               <div>
-                <strong>{formatCurrency(totalProfit)}</strong>
-                <p className="totals-p">Total Profit</p>
+                <div className="img-div">
+                  <FontAwesomeIcon icon={faMoneyBillAlt} size="lg"/>
+                </div>
+                <div>
+                  <strong>{formatCurrency(totalProfit)}</strong>
+                  <p className="totals-p">Total Profit</p>
+                </div>
+              </div>
+
+              <div className="candlestick-div" width="100" height="100">
+                <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
             </div>
-
+            
             <div className="acc-balance-div">
-              <div className="img-div">
-                <FontAwesomeIcon icon={faDatabase} size="lg"/>
-              </div>
               <div>
-                <strong>{formatCurrency(accountBalance)}</strong>
-                <p className="totals-p">Account Balance</p>
+                <div className="img-div">
+                  <FontAwesomeIcon icon={faDatabase} size="lg"/>
+                </div>
+                <div>
+                  <strong>{formatCurrency(accountBalance)}</strong>
+                  <p className="totals-p">Account Balance</p>
+                </div>
+              </div>
+
+              <div className="candlestick-div" width="100" height="100">
+                <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
             </div>
-
+            
             <div className="total-bonus-div">
-              <div className="img-div">
-                <FontAwesomeIcon icon={faGift} size="lg"/>
-              </div>
               <div>
-                <strong>{formatCurrency(totalBouns)}</strong>
-                <p className="totals-p">Total Bouns</p>
+                <div className="img-div">
+                  <FontAwesomeIcon icon={faGift} size="lg"/>
+                </div>
+                <div>
+                  <strong>{formatCurrency(totalBouns)}</strong>
+                  <p className="totals-p">Total Bouns</p>
+                </div>
+              </div>
+
+              <div className="candlestick-div" width="100" height="100">
+                <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
             </div>
 
@@ -141,15 +170,21 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
                 <p className="totals-p">Total Referral Bonus</p>
               </div>
             </div> */}
-
+            
             <div className="total-investment-plan-div">
-              <div className="img-div">
-                {/* <img src="vite.svg" alt="downloadicon"/> */}
-                <FontAwesomeIcon icon={faMoneyBillTrendUp} size="lg"/>
-              </div>
               <div>
-                <strong>{formatCurrency(totalInvestment)}</strong>
-                <p className="totals-p">Total Investment Plans</p>
+                <div className="img-div">
+                  {/* <img src="vite.svg" alt="downloadicon"/> */}
+                  <FontAwesomeIcon icon={faMoneyBillTrendUp} size="lg"/>
+                </div>
+                <div>
+                  <strong>{formatCurrency(totalInvestment)}</strong>
+                  <p className="totals-p">Total Investment </p>
+                </div>
+              </div>
+
+              <div className="candlestick-div" width="100" height="100">
+                <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
             </div>
 
@@ -164,94 +199,117 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
             </div> */}
 
             <div className="total-withdrawals-div">
-              <div className="img-div">
-                <FontAwesomeIcon icon={faMoneyCheckAlt} size="lg"/>
-              </div>
+
               <div>
-                <strong>{formatCurrency(totalWithdrawal)}</strong>
-                <p className="totals-p">Total Withdrawals</p>
+                <div className="img-div">
+                  <FontAwesomeIcon icon={faMoneyCheckAlt} size="lg"/>
+                </div>
+                <div>
+                  <strong>{formatCurrency(totalWithdrawal)}</strong>
+                  <p className="totals-p">Total Withdrawal</p>
+                </div>
+              </div>
+
+              <div className="candlestick-div" width="100" height="100">
+                <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
             </div>
           </div>
 
+          
+
           <div>
+            <div className="chart-container">
+              <CryptoLiveChart />
+            </div>
+
             <div className="balance-card">
               <div className="balance-acc-div">
-                <p className="acc-bal-p">Balance in Account</p>
-                <h2>{formatCurrency(accountBalance)}</h2>
+                {/* <div> */}
+                  <p className="acc-bal-p">Balance in Account</p>
+                  <h2>{formatCurrency(accountBalance)}</h2>
 
-                <div className="available-funds">
-                  <p>Available funds</p>
-                  <strong>{formatCurrency(totalDeposit + totalProfit)}</strong>
-                </div>
-                <div className="investment-funds">
-                  <p>Investment funds</p>
-                  <strong>{formatCurrency(totalInvestment)}</strong>
-                </div>
-                <div className="total-funds">
-                  <p><strong>Total funds</strong></p>
-                  <strong>{formatCurrency(totalDeposit + totalProfit + totalInvestment)}</strong>
-                </div>
-                <div className="funds-button">
-                  <button id="desh-depos" onClick={handleWithdrawBtn}>Withdraw Funds</button>
-                  <Link to='/dashboard/deposits' className=" depos-funds deposit-funds">Deposit Funds</Link>
-                </div>
+                  <div className="available-funds">
+                    <p>Available funds</p>
+                    <strong>{formatCurrency(totalDeposit + totalProfit)}</strong>
+                  </div>
+
+                  <div className="investment-funds">
+                    <p>Investment funds</p>
+                    <strong>{formatCurrency(totalInvestment)}</strong>
+                  </div>
+
+                  <div className="total-funds">
+                    <p><strong>Total funds</strong></p>
+                    <strong>{formatCurrency(totalDeposit + totalProfit + totalInvestment)}</strong>
+                  </div>
+
+                  <div className="funds-button">
+                    <button id="desh-depos" onClick={handleWithdrawBtn}>Withdraw Funds</button>
+                    <Link to='/dashboard/deposits' className=" depos-funds deposit-funds">Deposit Funds</Link>
+                  </div>
+                {/* </div> */}
               </div>
 
               <div className="profit-acc-div">
-                <p className="acc-bal-p">This Month Profit </p>
-                <div className="profit-acc">
-                  <h2>{formatCurrency(totalProfit)}</h2>
-                  <div className="flex items-center gap-1">
-                    <FontAwesomeIcon icon={faArrowUp} size="sm" color="green"/>
-                    <p className="profit-per">4.5%</p>
+                {/* <div> */}
+                  <p className="acc-bal-p">This Month Profit </p>
+                  <div className="profit-acc">
+                    <h2>{formatCurrency(totalProfit)}</h2>
+                    <div className="flex items-center gap-1">
+                      <FontAwesomeIcon icon={faArrowUp} size="sm" color="green"/>
+                      <p className="profit-per">4.5%</p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="available-funds">
-                  <p>Profits</p>
-                  <strong>{formatCurrency(totalProfit)}</strong>
-                </div>
-                <div className="investment-funds">
-                  <p>Rewards</p>
-                  <strong>$ 25.00</strong>
-                </div>
-                <div className="total-funds">
-                  <p><strong>Total funds</strong></p>
-                  <strong>{formatCurrency(totalProfit + 25)}</strong>
-                </div>
-                <div className="funds-button">
-                  <button onClick={handleInvestBtn}>Invest & Earn</button>
-                  <p className="deposit-funds">Earn up to 25$ each day!</p>
-                </div>
+                  <div className="available-funds">
+                    <p>Profits</p>
+                    <strong>{formatCurrency(totalProfit)}</strong>
+                  </div>
+                  <div className="investment-funds">
+                    <p>Rewards</p>
+                    <strong>$ 25.00</strong>
+                  </div>
+                  <div className="total-funds">
+                    <p><strong>Total funds</strong></p>
+                    <strong>{formatCurrency(totalProfit + 25)}</strong>
+                  </div>
+                  <div className="funds-button">
+                    <button onClick={handleInvestBtn}>Invest & Earn</button>
+                    <p className="deposit-funds">Earn up to 25$ each day!</p>
+                  </div>
+                {/* </div> */}
               </div>
 
               <div className="my-investment-div">
-                <p className="acc-bal-p">My Investment</p>
-                <h2>0 Active</h2>
 
-                <div className="available-funds">
-                  <p>Silver </p>
-                  <strong>0.00</strong>
-                </div>
-                <div className="investment-funds">
-                  <p>Demond</p>
-                  <strong>0.00</strong>
-                </div>
-                <div className="total-funds">
-                  <p><strong>Total funds</strong></p>
-                  <strong>0.00</strong>
-                </div>
-                <div className="funds-button">
-                  <button onClick={handleAllInvestBtn}>All Investment</button>
-                  <p className="deposit-funds">Check out Analytic Report</p>
-                </div>
+                {/* <div> */}
+                  <p className="acc-bal-p">My Investment</p>
+                  <h2>0 Active</h2>
+
+                  <div className="available-funds">
+                    <p>Silver </p>
+                    <strong>0.00</strong>
+                  </div>
+                  <div className="investment-funds">
+                    <p>Demond</p>
+                    <strong>0.00</strong>
+                  </div>
+                  <div className="total-funds">
+                    <p><strong>Total funds</strong></p>
+                    <strong>0.00</strong>
+                  </div>
+                  <div className="funds-button">
+                    <button onClick={handleAllInvestBtn}>All Investment</button>
+                    <p className="deposit-funds">Check out Analytic Report</p>
+                  </div>
+                {/* </div> */}
               </div>
             </div>
 
             {/* copyright seciton  */}
             <div className="dashboard-copyright-div">
-              <p>All Rights Reserved © Pennywise FX 2025</p>
+              <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()} </p>
             </div>
           </div>
         </div>

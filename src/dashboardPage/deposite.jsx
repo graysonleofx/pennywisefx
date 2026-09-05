@@ -15,6 +15,10 @@ function DepositPage ({username, email}) {
   const [errors, setErrors] = useState({ numberInput: '', paymentMethod: '' });  
   const [message, setMessage] = useState('')
 
+  const [numberInputStyle, setNumberInputStyle] = useState({});
+
+  const [paymentMethodStyle, setPaymentMethodStyle] = useState({});
+
   const handleProccedPayment= (e) => { 
     e.preventDefault
     const newErrors = { numberInput: '', paymentMethod: '' };
@@ -23,13 +27,22 @@ function DepositPage ({username, email}) {
     // validate number input
     if(!numberInput){
       newErrors.numberInput = 'Enter amount to deposits.';  
+      setNumberInputStyle({ border: '1px solid red' });
       isValid = false;
+    
     }else if(isNaN(numberInput) || numberInput < 50){
       newErrors.numberInput = 'Minimum deposits should be atleast $50.'; 
+      setNumberInputStyle({ border: '1px solid red' });
+      isValid = false;  
+    } else if (isNaN(numberInput) || numberInput > 10000) {
+      newErrors.numberInput = 'Maximum deposits should not exceed $10,000.'; 
+      setNumberInputStyle({ border: '1px solid red' });
       isValid = false;  
     }
+
     if (!paymentMethod) {  
-      newErrors.paymentMethod = 'Please select a payment method.';  
+      newErrors.paymentMethod = 'Please select a payment method.'; 
+      setPaymentMethodStyle({ border: '1px solid red' });
       isValid = false;  
     }  
     setErrors(newErrors);  
@@ -39,8 +52,9 @@ function DepositPage ({username, email}) {
       // console.log("Amount:", amount )
       if (isNaN(amount) || amount <= 0) {  
         setMessage('Please enter a valid amount.');  
+
         return;  
-      } 
+      }
       const auth = getAuth();
       const userId = auth.currentUser.uid;
       const database = getDatabase();
@@ -96,17 +110,19 @@ function DepositPage ({username, email}) {
                 onChange={handleAmtChange}
                 required
                 minLength='10'
+                style={errors.numberInput ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }}
               />
               {errors.numberInput && (  
                 <span style={{ color: 'red', fontSize: '14px'}}>{errors.numberInput}</span>  // Display error for number input  
               )}  
+              
             </div>
 
             <div className="choose-payment-div">
               <h3>Choose Payment Method from the list below</h3>
 
               <div className="payment-metthods">
-                <div className="btc-div">
+                <div className="btc-div" style={errors.paymentMethod ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }}>
                   <input 
                     type="radio" 
                     name="currencies" 
@@ -118,7 +134,7 @@ function DepositPage ({username, email}) {
                   <img src="/icons/btc.png" alt="" width='25px'/>
                   <p>Bitcoin</p>
                 </div>
-                <div className="usdt-div">
+                <div className="usdt-div" style={errors.paymentMethod ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }} >
                   <input 
                     type="radio" 
                     name="currencies" 
@@ -129,7 +145,7 @@ function DepositPage ({username, email}) {
                   <img src="/icons/usdt.png" alt="" width='25px'/>
                   <p>USDT TRC20</p>
                 </div>
-                <div className="usdt-div">
+                <div className="usdt-div" style={errors.paymentMethod ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }}>
                   <input 
                   type="radio" 
                   name="currencies" 
@@ -140,7 +156,7 @@ function DepositPage ({username, email}) {
                   <img src="/icons/usdt.png" alt="" width='25px'/>
                   <p>USDT ERC20</p>
                 </div>
-                <div className="usdt-div">
+                <div className="usdt-div" style={errors.paymentMethod ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }}>
                   <input 
                     type="radio" 
                     name="currencies" 
@@ -151,7 +167,7 @@ function DepositPage ({username, email}) {
                   <img src="/icons/usdt.png" alt="" width='25px'/>
                   <p>USDT BEP20</p>
                 </div>
-                <div className="eth-div">
+                <div className="eth-div" style={errors.paymentMethod ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }}>
                   <input  
                     type="radio" 
                     name="currencies"
@@ -163,7 +179,7 @@ function DepositPage ({username, email}) {
                   <p>Etherum</p>
                 </div> <br/>
               </div>
-                <div style={{marginBottom: '20px'}}>
+                <div style={{marginBottom: '10px'}}>
                   {errors.paymentMethod && (  
                     <span style={{ color: 'red', fontSize: '14px'}}>{errors.paymentMethod}</span>  
                   )} 
@@ -174,7 +190,7 @@ function DepositPage ({username, email}) {
 
           {/* copyright seciton  */}
           <div className="dashboard-copyright-div">
-            <p>All Rights Reserved © Pennywise FX 2025</p>
+            <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()} </p>
           </div>
         </div>
       </div>

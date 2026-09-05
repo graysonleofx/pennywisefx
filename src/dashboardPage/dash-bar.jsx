@@ -12,7 +12,7 @@ import {
   faMoneyBillWaveAlt, faPlusCircle, 
   faMinusCircle, faExchangeAlt,
   faHeadset,
-  faEnvelope 
+  faEnvelope, faHistory
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -113,6 +113,9 @@ function DashBars({username, email}) {
       </nav>
 
       <div className="nave-bar">
+        <div className="mobile-brand">
+          <img src="/brand.png" className="mobile-brand-logo" alt="Brand Logo" />
+        </div>
         <FontAwesomeIcon icon={faBars} className="navbar-menu" size="lg" onClick={handleMenuClick}/>
         {menuToggle ? 
           <nav className="sidebar resp-open">
@@ -224,7 +227,33 @@ function DashBars({username, email}) {
             : <></>}
           </div>
         </div>
-        
+        <nav className="mobile-bottom-nav" aria-label="Mobile dashboard navigation">
+          <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'mobile-nav-link active-mobile-nav' : 'mobile-nav-link'} end>
+            <FontAwesomeIcon icon={faHome} />
+            <span>Home</span>
+          </NavLink>
+          <NavLink to="/dashboard/deposits" className={({ isActive }) => isActive ? 'mobile-nav-link active-mobile-nav' : 'mobile-nav-link'}>
+            <FontAwesomeIcon icon={faPlusCircle} />
+            <span>Deposit</span>
+          </NavLink>
+          <NavLink to="/dashboard/withdraw" className={({ isActive }) => isActive ? 'mobile-nav-link active-mobile-nav' : 'mobile-nav-link'}>
+            <FontAwesomeIcon icon={faMinusCircle} />
+            <span>Withdraw</span>
+          </NavLink>
+          <NavLink to="/dashboard/transations" className={({ isActive }) => isActive ? 'mobile-nav-link active-mobile-nav' : 'mobile-nav-link'}>
+            <FontAwesomeIcon icon={faHistory} />
+            <span>History</span>
+          </NavLink>
+          {/* <button type="button" className="mobile-nav-link mobile-profile-link" onClick={handleClick} aria-label="Open profile menu">
+            <FontAwesomeIcon icon={faUser} />
+            <span>Profile</span>
+          </button> */}
+          <NavLink to="/dashboard/support" className={({ isActive }) => isActive ? 'mobile-nav-link active-mobile-nav' : 'mobile-nav-link'}>
+            <FontAwesomeIcon icon={faHeadset} />
+            <span>Support</span>
+          </NavLink>
+        </nav>
+
         {/* <main>
           {/* <Outlet/> 
         </main> */}

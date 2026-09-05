@@ -34,6 +34,8 @@ function MakePayment ({username, email }) {
   const [fileValidation, setFileValidation] = useState('');
   const [errors, setErrors]  = useState({fileValidation: null})
 
+  const [proofInputStyle, setProofInputStyle] = useState({});
+
   // Set the wallet address based on the selected payment method  
   useEffect(() => {  
     if (selectedPaymentMethod)  {  
@@ -67,6 +69,7 @@ function MakePayment ({username, email }) {
     
     if (!fileInput) { 
       setMessage('Please select a file to upload')
+      setProofInputStyle({ border: '1px solid red' });
       isValid = false; 
     }  else{
       const sanitizedFileName = sanitizeFileName(fileInput.name)
@@ -150,6 +153,7 @@ function MakePayment ({username, email }) {
                     onChange={handleFileChange}
                     type="file" className="proof-input"
                     required
+                    style={errors.fileValidation ? { border: '1px solid red' } : { border: '1px solid #f8f9fa' }}
                   />
                   {errors.fileValidation && (  
                   <span style={{ color: 'red', fontSize: '14px', marginTop: '-15px'}}>{errors.fileValidation}</span>  // Display error for number input  
@@ -162,7 +166,7 @@ function MakePayment ({username, email }) {
           </div>
           {/* copyright seciton  */}
           <div className="dashboard-copyright-div mk-pm-cpr">
-            <p>All Rights Reserved © Pennywise FX 2025</p>
+            <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()}</p>
           </div>
         </div>
       </div>

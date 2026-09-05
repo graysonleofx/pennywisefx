@@ -65,7 +65,7 @@ function SupportPage ({username, email}) {
 
           {/* copyright seciton  */}
           <div className="dashboard-copyright-div">
-            <p>All Rights Reserved © Pennywise FX 2025</p>
+            <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()} </p>
           </div>
         </div>
       </div>

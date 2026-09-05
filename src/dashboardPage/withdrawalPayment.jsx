@@ -204,13 +204,13 @@ function MakeWithdrawalPayment ({username, email}) {
                   )}
                 </div>
                 <button className="make-payment" onClick={handleWithdraw}>Withdraw</button>
-                {message && <p style={{color: 'yellowgreen', fontSize: '13px', marginTop:'20px'}}>{message}</p>}  
+                {message && <p style={{color: 'red', fontSize: '13px', marginTop:'20px'}}>{message}</p>}  
               </div>
 
             </div>
               {/* copyright seciton  */}
               <div className="dashboard-copyright-div mk-pm-cpr">
-                <p>All Rights Reserved © Pennywise FX 2025</p>
+                <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()} </p>
               </div>
           </div>
         </div>
