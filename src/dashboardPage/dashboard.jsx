@@ -88,7 +88,7 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
           <h2 className="welcome-heading">Welcome, {username} !</h2>
 
           <div className="Account-holding-div">
-            <div className="total-deposit-div">
+            {/* <div className="total-deposit-div">
               <div>
               
                 <div className="img-div">
@@ -105,9 +105,9 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <div className="candlestick-div" width="100" height="100">
                 <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
-            </div>
+            </div> */}
             
-            <div className="total-profit-div">
+            {/* <div className="total-profit-div">
               <div>
                 <div className="img-div">
                   <FontAwesomeIcon icon={faMoneyBillAlt} size="lg"/>
@@ -121,9 +121,9 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <div className="candlestick-div" width="100" height="100">
                 <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
-            </div>
+            </div> */}
             
-            <div className="acc-balance-div">
+            {/* <div className="acc-balance-div">
               <div>
                 <div className="img-div">
                   <FontAwesomeIcon icon={faDatabase} size="lg"/>
@@ -137,9 +137,9 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <div className="candlestick-div" width="100" height="100">
                 <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
-            </div>
+            </div> */}
             
-            <div className="total-bonus-div">
+            {/* <div className="total-bonus-div">
               <div>
                 <div className="img-div">
                   <FontAwesomeIcon icon={faGift} size="lg"/>
@@ -153,7 +153,7 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <div className="candlestick-div" width="100" height="100">
                 <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="total-referral-div">
               <div className="img-div">
@@ -165,10 +165,10 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               </div>
             </div> */}
             
-            <div className="total-investment-plan-div">
+            {/* <div className="total-investment-plan-div">
               <div>
                 <div className="img-div">
-                  {/* <img src="vite.svg" alt="downloadicon"/> */}
+                  <img src="vite.svg" alt="downloadicon"/>
                   <FontAwesomeIcon icon={faMoneyBillTrendUp} size="lg"/>
                 </div>
                 <div>
@@ -180,7 +180,7 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <div className="candlestick-div" width="100" height="100">
                 <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="active-investment-plan-div">
               <div className="img-div">
@@ -192,7 +192,7 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               </div>
             </div> */}
 
-            <div className="total-withdrawals-div">
+            {/* <div className="total-withdrawals-div">
 
               <div>
                 <div className="img-div">
@@ -207,16 +207,12 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <div className="candlestick-div" width="100" height="100">
                 <img src={candle} alt="Candlestick" width="100" height="100"/>
               </div>
-            </div>
+            </div> */}
           </div>
 
           
 
           <div>
-            <div className="chart-container">
-              <CryptoLiveChart />
-            </div>
-
             <PortfolioSection
               totalProfit={totalProfit}
               totalDeposit={totalDeposit}
@@ -225,6 +221,11 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               onInvest={handleInvestBtn}
               onWithdraw={handleWithdrawBtn}
             />
+            
+            <div className="chart-container">
+              <CryptoLiveChart />
+            </div>
+
             {/* copyright seciton  */}
             <div className="dashboard-copyright-div">
               <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()} </p>
