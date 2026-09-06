@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import DashBars from "./dash-bar";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
-import { faCopy  } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faHourglassHalf, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ref, set, getDatabase} from 'firebase/database';  
 import { getAuth } from "firebase/auth";
 // css imports
@@ -33,6 +33,7 @@ function MakePayment ({username, email }) {
   const [message, setMessage] = useState(''); 
   const [fileValidation, setFileValidation] = useState('');
   const [errors, setErrors]  = useState({fileValidation: null})
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const [proofInputStyle, setProofInputStyle] = useState({});
 
@@ -43,6 +44,17 @@ function MakePayment ({username, email }) {
       setPaymentImages(paymentImages[selectedPaymentMethod]);    
     }  
   }, [selectedPaymentMethod]);  
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setShowConfirmation(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
 
   // Function to copy the input value to clipboard  
   const handleCopy = () => {  
@@ -98,7 +110,7 @@ function MakePayment ({username, email }) {
     setErrors(newErrors);
     
     if(isValid){ 
-      alert('Deposits in progress...Wait for confirmation')
+      setShowConfirmation(true);
     }
   }
 
@@ -171,6 +183,46 @@ function MakePayment ({username, email }) {
         </div>
       </div>
     </div>
+
+    {showConfirmation && (
+      <div
+        className="payment-modal-backdrop"
+        role="presentation"
+        onClick={() => setShowConfirmation(false)}
+      >
+        <div
+          className="payment-confirmation-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="payment-confirmation-title"
+          onClick={(event) => event.stopPropagation()}
+        >
+          {/* <button
+            className="payment-modal-close"
+            type="button"
+            aria-label="Close payment confirmation"
+            onClick={() => setShowConfirmation(false)}
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button> */}
+          <div className="payment-status-icon" aria-hidden="true">
+            <FontAwesomeIcon icon={faHourglassHalf} />
+          </div>
+          <p className="payment-status-label">Payment submitted</p>
+          <h3 id="payment-confirmation-title">Deposits in progress...</h3>
+          <p className="payment-status-message">
+            Wait for confirmation. We&apos;ll review your payment proof and update your account shortly.
+          </p>
+          <button
+            className="payment-modal-action"
+            type="button"
+            onClick={() => setShowConfirmation(false)}
+          >
+            Got it
+          </button>
+        </div>
+      </div>
+    )}
 
     </div>
   )

@@ -2,23 +2,22 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import { getDatabase, ref, onValue, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { Link } from "react-router-dom"
-import DashBars from "./dash-bar";
 import DashboardLayout from "./dashboardLayout"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
 import candle from '../assets/candle.png';
 import { 
   faMoneyBillTrendUp, faCoins,
   faMoneyBillAlt, faDatabase,
-  faMoneyCheckAlt , faGift, faArrowUp
+  faMoneyCheckAlt , faGift
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import '../styles/dashboard.css'
 import '../styles.css'
 import CryptoLiveChart from "./CryptoLiveChart";
+import PortfolioSection from "./PortfolioSection";
 
 
-export default function Dashboard({username, totalProfit, totalDeposit, totalBouns, totalInvestment, totalWithdrawal, email}) {
+export default function Dashboard({username, totalProfit, totalDeposit, totalBouns, totalInvestment, totalWithdrawal, email, transactions = []}) {
 // export default function Dashboard() {
 
   // currency format for dollar signs 
@@ -78,11 +77,6 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
   const handleInvestBtn = () => {
     navigate('/dashboard/invest')
   }
-  const handleAllInvestBtn = () => {
-    alert(`Not Available at the moment \n Please try Again Later!!!`);
-    // navigate('/dashboard/invest/all-investment')
-  }
-
   return(
    // for nav bar 
     <div>
@@ -223,90 +217,14 @@ export default function Dashboard({username, totalProfit, totalDeposit, totalBou
               <CryptoLiveChart />
             </div>
 
-            <div className="balance-card">
-              <div className="balance-acc-div">
-                {/* <div> */}
-                  <p className="acc-bal-p">Balance in Account</p>
-                  <h2>{formatCurrency(accountBalance)}</h2>
-
-                  <div className="available-funds">
-                    <p>Available funds</p>
-                    <strong>{formatCurrency(totalDeposit + totalProfit)}</strong>
-                  </div>
-
-                  <div className="investment-funds">
-                    <p>Investment funds</p>
-                    <strong>{formatCurrency(totalInvestment)}</strong>
-                  </div>
-
-                  <div className="total-funds">
-                    <p><strong>Total funds</strong></p>
-                    <strong>{formatCurrency(totalDeposit + totalProfit + totalInvestment)}</strong>
-                  </div>
-
-                  <div className="funds-button">
-                    <button id="desh-depos" onClick={handleWithdrawBtn}>Withdraw Funds</button>
-                    <Link to='/dashboard/deposits' className=" depos-funds deposit-funds">Deposit Funds</Link>
-                  </div>
-                {/* </div> */}
-              </div>
-
-              <div className="profit-acc-div">
-                {/* <div> */}
-                  <p className="acc-bal-p">This Month Profit </p>
-                  <div className="profit-acc">
-                    <h2>{formatCurrency(totalProfit)}</h2>
-                    <div className="flex items-center gap-1">
-                      <FontAwesomeIcon icon={faArrowUp} size="sm" color="green"/>
-                      <p className="profit-per">4.5%</p>
-                    </div>
-                  </div>
-
-                  <div className="available-funds">
-                    <p>Profits</p>
-                    <strong>{formatCurrency(totalProfit)}</strong>
-                  </div>
-                  <div className="investment-funds">
-                    <p>Rewards</p>
-                    <strong>$ 25.00</strong>
-                  </div>
-                  <div className="total-funds">
-                    <p><strong>Total funds</strong></p>
-                    <strong>{formatCurrency(totalProfit + 25)}</strong>
-                  </div>
-                  <div className="funds-button">
-                    <button onClick={handleInvestBtn}>Invest & Earn</button>
-                    <p className="deposit-funds">Earn up to 25$ each day!</p>
-                  </div>
-                {/* </div> */}
-              </div>
-
-              <div className="my-investment-div">
-
-                {/* <div> */}
-                  <p className="acc-bal-p">My Investment</p>
-                  <h2>0 Active</h2>
-
-                  <div className="available-funds">
-                    <p>Silver </p>
-                    <strong>0.00</strong>
-                  </div>
-                  <div className="investment-funds">
-                    <p>Demond</p>
-                    <strong>0.00</strong>
-                  </div>
-                  <div className="total-funds">
-                    <p><strong>Total funds</strong></p>
-                    <strong>0.00</strong>
-                  </div>
-                  <div className="funds-button">
-                    <button onClick={handleAllInvestBtn}>All Investment</button>
-                    <p className="deposit-funds">Check out Analytic Report</p>
-                  </div>
-                {/* </div> */}
-              </div>
-            </div>
-
+            <PortfolioSection
+              totalProfit={totalProfit}
+              totalDeposit={totalDeposit}
+              totalInvestment={totalInvestment}
+              transactions={transactions}
+              onInvest={handleInvestBtn}
+              onWithdraw={handleWithdrawBtn}
+            />
             {/* copyright seciton  */}
             <div className="dashboard-copyright-div">
               <p>All Rights Reserved © Pennywise FX {new Date().getFullYear()} </p>

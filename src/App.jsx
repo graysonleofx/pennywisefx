@@ -141,6 +141,7 @@ function App() {
                 totalInvestment={totalInvestment}   
                 totalWithdrawal={totalWithdrawal} 
                 email={email}  
+                transactions={transactionHistory}
                 onSignOut={handleSignOut}
               />  
             </ProtectedRoute>  
