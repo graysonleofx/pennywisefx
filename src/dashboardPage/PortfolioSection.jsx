@@ -127,7 +127,7 @@ function PortfolioOverview({ totalValue, available, invested, profit, roi, onInv
 export default function PortfolioSection({ totalProfit, totalDeposit, totalInvestment, transactions = [], onInvest, onWithdraw }) {
   const [marketMovers, setMarketMovers] = useState([]);
   const [marketLoading, setMarketLoading] = useState(true);
-  const [marketError, setMarketError] = useState(false);
+  const [marketError, setMarketError] = useState("");
 
   const metrics = useMemo(() => {
     const profit = Number(totalProfit || 0);
@@ -146,15 +146,18 @@ export default function PortfolioSection({ totalProfit, totalDeposit, totalInves
     const loadMarketMovers = async () => {
       try {
         const response = await fetch(MARKET_API);
-        if (!response.ok) throw new Error("Unable to load market movers");
+        if (!response.ok) {
+          throw new Error(`CoinGecko returned HTTP ${response.status}`);
+        }
         const result = await response.json();
         if (active) {
           setMarketMovers(result);
+          setMarketError("");
           setMarketLoading(false);
         }
-      } catch {
+      } catch (error) {
         if (active) {
-          setMarketError(true);
+          setMarketError(error instanceof TypeError ? "Network or browser access blocked the request." : error.message);
           setMarketLoading(false);
         }
       }
@@ -181,7 +184,7 @@ export default function PortfolioSection({ totalProfit, totalDeposit, totalInves
       </div>
       <section className="portfolio-panel market-movers-panel">
         <div className="portfolio-section-heading compact"><div><span className="portfolio-eyebrow">LIVE MARKET</span><h2>Market Movers</h2></div><span className="portfolio-link">View market <span aria-hidden="true">→</span></span></div>
-        {marketLoading ? <p className="portfolio-empty-state">Loading live market data...</p> : marketError ? <p className="portfolio-empty-state">Market data is temporarily unavailable.</p> : <div className="market-movers-grid">{marketMovers.map((coin) => <div className="market-mover" key={coin.id}><div className="market-mover-coin"><img src={coin.image} alt="" /><strong>{coin.symbol.toUpperCase()}</strong></div><strong>{formatCurrency(coin.current_price)}</strong><span className={coin.price_change_percentage_24h >= 0 ? "positive" : "negative"}>{coin.price_change_percentage_24h >= 0 ? "+" : ""}{Number(coin.price_change_percentage_24h || 0).toFixed(2)}% <FontAwesomeIcon icon={coin.price_change_percentage_24h >= 0 ? faArrowTrendUp : faArrowTrendDown} /></span></div>)}</div>}
+        {marketLoading ? <p className="portfolio-empty-state">Loading live market data...</p> : marketMovers.length ? <div className="market-movers-grid">{marketMovers.map((coin) => <div className="market-mover" key={coin.id}><div className="market-mover-coin"><img src={coin.image} alt="" /><strong>{coin.symbol.toUpperCase()}</strong></div><strong>{formatCurrency(coin.current_price)}</strong><span className={coin.price_change_percentage_24h >= 0 ? "positive" : "negative"}>{coin.price_change_percentage_24h >= 0 ? "+" : ""}{Number(coin.price_change_percentage_24h || 0).toFixed(2)}% <FontAwesomeIcon icon={coin.price_change_percentage_24h >= 0 ? faArrowTrendUp : faArrowTrendDown} /></span></div>)}</div> : <p className="portfolio-empty-state">{marketError || "Market data is temporarily unavailable."}</p>}
       </section>
     </div>
   );
