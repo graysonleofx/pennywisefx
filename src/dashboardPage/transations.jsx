@@ -15,7 +15,8 @@ import {
 import DashBars from "./dash-bar";
 import "../styles/dashboard.css";
 
-const filters = ["all", "deposits", "withdrawals", "pending", "approved"];
+const filters = ["all", "deposits", "withdrawals", "pending", "approved", "rejected"];
+const pageSize = 8;
 
 function normalizeStatus(status) {
   const value = String(status || "pending").toLowerCase();
@@ -87,10 +88,10 @@ function TransactionDetails({ transaction, onClose }) {
   return (
     <div className="transaction-modal-backdrop" role="presentation" onClick={onClose}>
       <section className="transaction-modal" role="dialog" aria-modal="true" aria-labelledby="transaction-details-title" onClick={(event) => event.stopPropagation()}>
-        <div className="transaction-modal-header"><div><span className="transaction-kicker">TRANSACTION DETAILS</span><h2 id="transaction-details-title">{paymentLabel(transaction)}</h2></div><button type="button" className="transaction-close" aria-label="Close details" onClick={onClose}><FontAwesomeIcon icon={faXmark} /></button></div>
+        <div className="transaction-modal-header"><div><span className="transaction-kicker">TRANSACTION DETAILS</span><h2 id="transaction-details-title">{paymentLabel(transaction)}</h2></div></div>
         <div className="transaction-detail-status"><StatusBadge status={status} /><span>{formatDate(transaction.date, true)}</span></div>
         <div className="transaction-detail-grid">
-          <div><span>Transaction ID</span><strong>{transaction.id || "Unavailable"}</strong></div>
+          <div><span>Transaction ID</span><TransactionId transaction={transaction} /></div>
           <div><span>Amount</span><strong>{formatCurrency(transaction.amount)}</strong></div>
           <div><span>Payment Method</span><strong>{paymentLabel(transaction)}</strong></div>
           <div><span>Transaction Type</span><strong>{type[0].toUpperCase() + type.slice(1)}</strong></div>
@@ -101,6 +102,21 @@ function TransactionDetails({ transaction, onClose }) {
       </section>
     </div>
   );
+}
+
+function TransactionId({ transaction, compact = false }) {
+  const [copied, setCopied] = useState(false);
+  const id = transaction.id || transaction.transactionId || "Unavailable";
+  const copyId = async (event) => {
+    event.stopPropagation();
+    if (id === "Unavailable") return;
+    try {
+      await navigator.clipboard.writeText(String(id));
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1400);
+    } catch { setCopied(false); }
+  };
+  return <button type="button" className={`transaction-id-copy ${compact ? "compact" : ""}`} onClick={copyId} title="Copy transaction ID"><span>{compact ? `${String(id).slice(0, 8)}...` : id}</span><FontAwesomeIcon icon={faCopy} />{copied && <small>Copied</small>}</button>;
 }
 
 function TransactionRow({ transaction, onSelect }) {
@@ -131,11 +147,12 @@ function SummaryCard({ label, value, icon, tone }) {
   return <div className="transaction-summary-card"><span className={`transaction-summary-icon ${tone}`}><FontAwesomeIcon icon={icon} /></span><div><span>{label}</span><strong>{value}</strong></div></div>;
 }
 
-function TransactionPage({ username, email, transactions = [] }) {
+function TransactionPage({ username, email, transactions = [], loading = false, error = "" }) {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [page, setPage] = useState(1);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  const normalizedTransactions = useMemo(() => transactions.slice().sort((a, b) => new Date(b.date) - new Date(a.date)), [transactions]);
+  const normalizedTransactions = useMemo(() => transactions.slice().sort((a, b) => new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt)), [transactions]);
   const summary = useMemo(() => {
     const approved = normalizedTransactions.filter((transaction) => normalizeStatus(transaction.status) === "approved");
     const pending = normalizedTransactions.filter((transaction) => normalizeStatus(transaction.status) === "pending");
@@ -145,24 +162,27 @@ function TransactionPage({ username, email, transactions = [] }) {
   const visibleTransactions = normalizedTransactions.filter((transaction) => {
     const status = normalizeStatus(transaction.status);
     const type = normalizeType(transaction);
-    return activeFilter === "all" || activeFilter === status || activeFilter === type || (activeFilter === "deposits" && type === "deposit") || (activeFilter === "withdrawals" && type === "withdrawal");
+    return activeFilter === "all" || activeFilter === status || (activeFilter === "deposits" && type === "deposit") || (activeFilter === "withdrawals" && type === "withdrawal");
   });
+  const pageCount = Math.max(1, Math.ceil(visibleTransactions.length / pageSize));
+  const pageTransactions = visibleTransactions.slice((page - 1) * pageSize, page * pageSize);
+  const setFilter = (filter) => { setActiveFilter(filter); setPage(1); };
 
   return (
     <div className="navigate-bars">
       <DashBars username={username} email={email} />
       <div className="main">
         <div className="dashbord-ccontainer transaction-page-container">
-          {/* <header className="transaction-page-header"><div><span className="transaction-kicker">ACCOUNT ACTIVITY</span><h1>Transaction History</h1><p>Track and manage all your account transactions</p></div><span className="transaction-header-count"><FontAwesomeIcon icon={faCircleInfo} /> {normalizedTransactions.length} records</span></header> */}
-          {/* <section className="transaction-summary-grid">
+          {/* <header className="transaction-page-header"><div><span className="transaction-kicker">ACCOUNT ACTIVITY</span><h1>Transaction history</h1><p>Track deposits, withdrawals, and investment activity in one place.</p></div><span className="transaction-header-count"><FontAwesomeIcon icon={faCircleInfo} /> {normalizedTransactions.length} records</span></header> */}
+          <section className="transaction-summary-grid">
             <SummaryCard label="Total Transactions" value={normalizedTransactions.length} icon={faDatabase} tone="neutral" />
             <SummaryCard label="Pending Transactions" value={summary.pending} icon={faClock} tone="pending" />
             <SummaryCard label="Approved Transactions" value={summary.approved} icon={faCheck} tone="approved" />
             <SummaryCard label="Total Volume" value={formatCurrency(summary.volume)} icon={faArrowTrendUp} tone="volume" />
-          </section> */}
+          </section>
           <section className="transaction-history-panel">
-            <div className="transaction-toolbar"><div><h2>All activity</h2><p>{visibleTransactions.length} matching transaction{visibleTransactions.length === 1 ? "" : "s"}</p></div><div className="transaction-filter-list" role="tablist" aria-label="Transaction filters">{filters.map((filter) => <button key={filter} type="button" role="tab" aria-selected={activeFilter === filter} className={activeFilter === filter ? "active" : ""} onClick={() => setActiveFilter(filter)}>{filter[0].toUpperCase() + filter.slice(1)}</button>)}</div></div>
-            {visibleTransactions.length ? <><div className="transaction-table" role="table"><div className="transaction-table-header" role="row"><span>Transaction ID</span><span>Amount</span><span>Payment Method</span><span>Type</span><span>Status</span><span>Date</span><span>Details</span></div><div className="transaction-table-body">{visibleTransactions.map((transaction, index) => <TransactionRow key={transaction.id || `${transaction.date}-${transaction.amount}-${index}`} transaction={transaction} onSelect={setSelectedTransaction} />)}</div></div><div className="transaction-mobile-list">{visibleTransactions.map((transaction, index) => <TransactionRow key={transaction.id || `${transaction.date}-${transaction.amount}-${index}`} transaction={transaction} onSelect={setSelectedTransaction} />)}</div></> : <div className="transaction-empty"><FontAwesomeIcon icon={faDatabase} /><strong>No transactions found</strong><span>Completed and pending activity will appear here.</span></div>}
+            <div className="transaction-toolbar"><div><h2>All activity</h2><p>{visibleTransactions.length} matching transaction{visibleTransactions.length === 1 ? "" : "s"}</p></div><div className="transaction-filter-list" role="tablist" aria-label="Transaction filters">{filters.map((filter) => <button key={filter} type="button" role="tab" aria-selected={activeFilter === filter} className={activeFilter === filter ? "active" : ""} onClick={() => setFilter(filter)}>{filter[0].toUpperCase() + filter.slice(1)}</button>)}</div></div>
+            {loading ? <div className="transaction-skeleton-list">{[1, 2, 3, 4].map((item) => <div className="transaction-skeleton" key={item}><span /><div><span /><span /></div><span /></div>)}</div> : error ? <div className="transaction-state transaction-state-error"><strong>Unable to load activity</strong><span>{error}</span></div> : pageTransactions.length ? <><div className="transaction-table" role="table"><div className="transaction-table-header" role="row"><span>Transaction ID</span><span>Amount</span><span>Payment Method</span><span>Type</span><span>Status</span><span>Date</span><span>Details</span></div><div className="transaction-table-body">{pageTransactions.map((transaction, index) => <TransactionRow key={transaction.id || `${transaction.date}-${transaction.amount}-${index}`} transaction={transaction} onSelect={setSelectedTransaction} />)}</div></div><div className="transaction-mobile-list">{pageTransactions.map((transaction, index) => <TransactionRow key={transaction.id || `${transaction.date}-${transaction.amount}-${index}`} transaction={transaction} onSelect={setSelectedTransaction} />)}</div><div className="transaction-pagination"><span>Page {page} of {pageCount}</span><div><button type="button" disabled={page === 1} onClick={() => setPage((current) => current - 1)}>Previous</button><button type="button" disabled={page === pageCount} onClick={() => setPage((current) => current + 1)}>Next</button></div></div></> : <div className="transaction-state"><FontAwesomeIcon icon={faDatabase} /><strong>No transactions found</strong><span>Completed and pending activity will appear here.</span></div>}
           </section>
           <div className="dashboard-copyright-div"><p>All Rights Reserved © Pennywise FX {new Date().getFullYear()}</p></div>
         </div>

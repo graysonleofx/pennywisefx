@@ -4,7 +4,7 @@ import DashBars from "./dash-bar";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';  
 import { faCopy, faHourglassHalf, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { ref, set, getDatabase} from 'firebase/database';  
+import { ref, update, getDatabase} from 'firebase/database';  
 import { getAuth } from "firebase/auth";
 // css imports
 import '../styles/dashboard.css';
@@ -15,18 +15,19 @@ const walletAddresses = {
   'USDT (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
   'USDT (Bep20)': '0x8d940424813a4658c727c530b0c85e8d916b6558',
   'ETH (Erc20)': '0x8d940424813a4658c727c530b0c85e8d916b6558'
-}
-const paymentImages = {  
-  'Bitcoin': '/icons/btc.png',  
-  'USDT (Trc20)': '/icons/usdt.png',  
+};
+
+const paymentImages = {
   'USDT (Erc20)': '/icons/usdt.png',  
   'USDT (Bep20)': '/icons/usdt.png',  
-  'ETH (Erc20)': '/icons/ethrum.png'  
-}; 
+  'ETH (Erc20)': '/icons/ethrum.png',
+  'Bitcoin': '/icons/btc.png',
+  'USDT (Trc20)': '/icons/usdt.png',
+};
 
 function MakePayment ({username, email }) {
   const location = useLocation();
-  const { selectedPaymentMethod, depositAmount } = location.state || {}; 
+  const { selectedPaymentMethod, depositAmount, transactionId, depositId } = location.state || {}; 
   const [walletAddress, setWalletAddress] = useState('');   
   const [paymentImage, setPaymentImages] = useState('');  
   const [fileInput, setFileInput] = useState(null);
@@ -84,18 +85,30 @@ function MakePayment ({username, email }) {
       setProofInputStyle({ border: '1px solid red' });
       isValid = false; 
     }  else{
+      if (!transactionId || !(depositId || transactionId)) {
+        setMessage('Deposit request is missing. Please start again.');
+        isValid = false;
+      }
       const sanitizedFileName = sanitizeFileName(fileInput.name)
       const auth = getAuth()
       const userId = auth.currentUser.uid;
       const database = getDatabase()
-      const fileRef = ref(database, `users/${userId}/${sanitizedFileName}`);
       try{
-        await set(fileRef, {
-          name: sanitizedFileName,
-          file: fileInput,
-          uploadedAt: new Date().toISOString()
-        });
-        setMessage('file uploaded successfully')
+        const proofData = {
+          proofFileName: sanitizedFileName,
+          proofUploadedAt: new Date().toISOString(),
+        };
+        if (isValid) {
+          await update(ref(database), {
+            [`deposits/${depositId || transactionId}/proofFileName`]: proofData.proofFileName,
+            [`deposits/${depositId || transactionId}/proofUploadedAt`]: proofData.proofUploadedAt,
+            [`users/${userId}/transactions/${transactionId}/proofFileName`]: proofData.proofFileName,
+            [`users/${userId}/transactions/${transactionId}/proofUploadedAt`]: proofData.proofUploadedAt,
+          });
+          setMessage('Payment proof submitted successfully');
+        } else {
+          return;
+        }
       }catch (error) {  
         console.error( error);  
         setMessage(error.message);  

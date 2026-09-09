@@ -4,7 +4,7 @@ import DashBars from "./dash-bar";
 import DashboardLayout from "./dashboardLayout"
 import { useNavigate } from "react-router-dom";
 import '../styles/dashboard.css'
-import { set, ref, getDatabase, push } from "firebase/database";
+import { ref, getDatabase, push, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 function DepositPage ({username, email}) {
@@ -60,23 +60,41 @@ function DepositPage ({username, email}) {
       const database = getDatabase();
       const transactionBaseRef = ref(database, `users/${userId}/transactions`);
       const transactionRef = push(transactionBaseRef);
+      const createdAt = new Date().toISOString();
       const transactionData = {
         amount,
         paymentMethod: selectedPaymentMethod,
-        status: "Pending",
+        status: "pending",
         transaction: 'deposits',
-        date: new Date().toISOString()
+        transactionId: transactionRef.key,
+        userId,
+        date: createdAt,
+        createdAt,
       }
-      if(transactionRef){
-        set(transactionRef, transactionData)
+      const depositData = {
+        ...transactionData,
+        status: 'pending',
+        submittedDate: createdAt,
+      };
+
+      update(ref(database), {
+        [`users/${userId}/transactions/${transactionRef.key}`]: transactionData,
+        [`deposits/${transactionRef.key}`]: depositData,
+      })
         .then(() => {
-          // console.log('transaction saved successfully')
-          navigate('/dashboard/deposits/payment', { state: { selectedPaymentMethod, depositAmount: amount} }); //  Pass the selected payment method to the next page
+          navigate('/dashboard/deposits/payment', {
+            state: {
+              selectedPaymentMethod,
+              depositAmount: amount,
+              transactionId: transactionRef.key,
+              depositId: transactionRef.key,
+            },
+          });
         })
         .catch((error) => {
-          console.error('Error saving transaction:', error);
-        })
-      }
+          console.error('Error saving deposit:', error);
+          setMessage('Unable to create deposit request. Please try again.');
+        });
     } 
   };
 

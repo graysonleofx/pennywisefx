@@ -21,7 +21,10 @@ function SignUpUser(){
   const [selectedCountry, setSelectedCountry] = useState('');
   const [referer, setReferer] = useState('');
   // sign up Error message authetication 
-  const [errorMessage, setErrorMessage] = useState('');  
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
   // handle events
@@ -31,7 +34,7 @@ function SignUpUser(){
     watch, 
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: 'onBlur' });
 
   // countries effects 
   useEffect(() => {
@@ -40,12 +43,11 @@ function SignUpUser(){
   }, [])
 
   // handle the submit 
-  const onSubmit =  async () => {
-    // console.log(data)
-    // sendEmail();
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    setErrorMessage('');
     try{
-      document.querySelector('#sign-up').innerHTML = 'Signing Up...'; 
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
       const user = userCredential.user;
 
       // Check if user already exists in the database
@@ -55,13 +57,12 @@ function SignUpUser(){
       if(!snapshot.exists()){
         // Only set user data if it doesn't exist 
         await set(userRef, {
-          username: username,
-          fullname: fullname,
-          email: email,
-          phone: phone,
-          password: password,
-          country: selectedCountry,
-          referer: referer,
+          username: data.username,
+          fullname: data.fullname,
+          email: data.email,
+          phone: data.phone || '',
+          country: data.country,
+          referer: data.referer || '',
           totalDeposit: 0,
           totalProfit: 0,
           accountBalance: 0,
@@ -86,27 +87,34 @@ function SignUpUser(){
       // alert('Sign up Successful');
       navigate('/sign-in');
     }catch(error){
-      document.querySelector('#sign-up').innerHTML = 'Sign Up'; 
-        setErrorMessage(error.message)
-      if(error.message = 'auth/email-already-in-use'){
-        alert('The email address is already in use by another account');
-      }else if(error.message = 'auth/user-disabled') {
-        alert('The user corresponding to the given email has been disabled')
-      }
+      const messages = {
+        'auth/email-already-in-use': 'This email is already linked to an account.',
+        'auth/user-disabled': 'This account has been disabled.',
+        'auth/weak-password': 'Choose a stronger password with at least 6 characters.',
+        'auth/network-request-failed': 'No internet connection. Check your network and try again.'
+      };
+      setErrorMessage(messages[error.code] || 'Unable to create your account. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
   return(
     <React.Fragment>
-      <div className="sign-container">
-        <div className="logo-div">
-        <img src="brand.png" className="logo"/>
-        </div>
-
-        {/* form contents containers  */}
-
-        <div className="form-container">
-          <h3>Create an Account</h3>
+      <main className="auth-page">
+        <section className="auth-shell auth-shell-signup">
+          <aside className="auth-visual">
+            <div className="auth-brand"><img src="/brand.png" className="logo" alt="PennyWise FX" /></div>
+            <div className="auth-visual-copy">
+              <span className="eyebrow">YOUR NEXT MOVE</span>
+              <h1>Build your<br /><em>momentum.</em></h1>
+              <p>Join a focused community of investors making more informed decisions.</p>
+            </div>
+            <div className="auth-stat"><strong>01</strong><span>One account. More possibilities.</span></div>
+          </aside>
+          <section className="form-container">
+            <div className="form-heading"><span className="eyebrow">GET STARTED</span><h2>Create your account</h2><p>Set up your profile in a few simple steps.</p></div>
+            {errorMessage && <div className="form-alert" role="alert">{errorMessage}</div>}
 
           {/* form div */}
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -120,7 +128,7 @@ function SignUpUser(){
                 <input 
                   type="text" 
                   name="username"
-                  {...register("username", {required: true})}
+                  {...register("username", {required: 'Username is required', minLength: { value: 3, message: 'Use at least 3 characters.' }})}
                   placeholder="Enter Unique Username"
                   onChange = {(e) => setUsername(e.target.value)}  
                   className={errors.username ? 'input-error pl-3r' : 'pl-3r' }
@@ -132,7 +140,7 @@ function SignUpUser(){
                 />
                 {errors.username && 
                 (<div className="error-msg">
-                  {errors.username.type === 'required' ? 'Username is required' : 'Username must be at least 6 characters'}
+                  {errors.username.message}
                 </div>)}
                 
               </div>
@@ -148,7 +156,7 @@ function SignUpUser(){
                 <input 
                   type="text" 
                   name="fullname"
-                  {...register("fullname", {required: true, minLength: 10})}
+                  {...register("fullname", {required: 'Full name is required', minLength: { value: 3, message: 'Enter your full name.' }})}
                   placeholder="Enter Fullname" 
                   onChange={(e) => setFullname(e.target.value)} 
                   className={errors.fullname ? 'input-error pl-3r' : 'pl-3r' }
@@ -160,7 +168,7 @@ function SignUpUser(){
                 />
                 {errors.fullname && 
                 (<div className="error-msg">
-                  {errors.fullname.type === 'required' ? 'Fullname is required' : 'Fullname must be at least 5 characters'}
+                  {errors.fullname.message}
                 </div>)}
               </div>
             </div>
@@ -184,7 +192,7 @@ function SignUpUser(){
               </div>
               {errors.email && 
               (<div className="error-msg">
-                {errors.email.type === 'required' ? 'Email is required' : 'The email address is not valid.'}
+                  {errors.email.type === 'required' ? 'Email is required' : 'Enter a valid email address.'}
               </div>)}
             </div>
             
@@ -221,20 +229,16 @@ function SignUpUser(){
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="icon">
                   <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17l0 80c0 13.3 10.7 24 24 24l80 0c13.3 0 24-10.7 24-24l0-40 40 0c13.3 0 24-10.7 24-24l0-40 40 0c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/>
                 </svg>
-                <input type="password" 
-                  {...register("password", {required: true, minLength: 6})}
+                <input type={showPassword ? 'text' : 'password'}
+                  {...register("password", {required: 'Password is required', minLength: { value: 6, message: 'Use at least 6 characters.' }})}
                   placeholder="Enter Password" 
                   onChange = {(e) => setPassword(e.target.value)}
                   className={errors.password ? 'pl-3r input-error' : 'pl-3r' }
-                  onInput={(e) => {
-                    if(e.target.value.length > 25){
-                      e.target.value = e.target.value.substring(0, 25)
-                    }
-                  }}
                 />
+                <button type="button" className="password-toggle" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? 'Hide password' : 'Show password'}>{showPassword ? 'Hide' : 'Show'}</button>
                 {errors.password && 
                 (<div className="error-msg">
-                  {errors.password.type === 'required' ? 'Password is required' : 'The password is too weak. It should be at least 6 characters.'}
+                  {errors.password.message}
                 </div>)}
               </div>
             </div>
@@ -247,19 +251,15 @@ function SignUpUser(){
                   <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17l0 80c0 13.3 10.7 24 24 24l80 0c13.3 0 24-10.7 24-24l0-40 40 0c13.3 0 24-10.7 24-24l0-40 40 0c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/>
                 </svg>
                 <input 
-                  type="password"
-                  {...register("confirmPassword", {required: true, validate: value => value === getValues().password})}
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  {...register("confirmPassword", {required: 'Please confirm your password', validate: value => value === getValues().password || 'Passwords do not match'})}
                   placeholder="Confirm Password" 
                   className={errors.confirmPassword ? 'input-error pl-3r' : 'pl-3r' }
-                  onInput={(e) => {
-                    if(e.target.value.length > 25){
-                      e.target.value = e.target.value.substring(0, 25)
-                    }
-                  }}
                 />
+                <button type="button" className="password-toggle" onClick={() => setShowConfirmPassword(!showConfirmPassword)} aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}>{showConfirmPassword ? 'Hide' : 'Show'}</button>
                 {errors.confirmPassword && 
                 (<div className="error-msg">
-                  {errors.confirmPassword.type === 'required' ? 'Password is required' : 'Password do not match'}
+                  {errors.confirmPassword.message}
                 </div>)}
               </div>
             </div>
@@ -315,7 +315,7 @@ function SignUpUser(){
               <input type="checkbox"/>
               <label>I Accept the Terms And Privacy Policy</label>
             </div> */}
-            <button type="submit" id="sign-up">Sign Up</button>
+            <button type="submit" id="sign-up" disabled={isSubmitting}>{isSubmitting ? 'Creating account...' : 'Create account'}</button>
           </form>
 
           <div className="already-have-act-div">
@@ -329,8 +329,9 @@ function SignUpUser(){
           {/* <div className="copyright-div">
             <p>© Copyright 2024   Pennywise Trading FX   All Rights Reserved.</p>
           </div> */}
-        </div>
-      </div>
+        </section>
+        </section>
+      </main>
     </React.Fragment>
   )
 }

@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-import {useForm} from "react-hook-form"
+import React, { useState } from "react";
+import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom";
 import { ref, get, update } from 'firebase/database';  
 import {auth, database} from '../firebase'
@@ -9,22 +8,18 @@ import { useNavigate } from "react-router-dom";
 import '../styles/sign-up.css'
 
 function SignInUser({ onLogin}){
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  // sign up Error message authetication 
-  const [errorMessage, setErrorMessage] = useState(''); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  // handle events
-  const {register, handleSubmit,
-  formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
 
 
   // handle the submit 
-  const onSubmit =  async () => {
-    // console.log(data)
+  const onSubmit = async ({ email, password }) => {
+    setIsSubmitting(true);
+    setErrorMessage('');
     try{
-      document.querySelector('#sign-in').innerHTML = 'Signing In...'; 
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       // Fetch user data from Realtime Database  
@@ -55,38 +50,34 @@ function SignInUser({ onLogin}){
     navigate('/dashboard');
 
     }catch(error){
-      console.log(error)
-      document.querySelector('#sign-in').innerHTML = 'Sign In'; 
-      setErrorMessage(error.message)
-       if (error.message = 'auth/wrong-password'){
-        alert('Wrong Password');
-      }else if (error.message = 'auth/too-many-requests'){
-        alert('Too many requests. Please try again later.');
-      }else if (error.message = 'auth/network-request-failed'){
-        alert('No Internet Service');
-      }
-
+      const messages = {
+        'auth/invalid-credential': 'The email or password is incorrect.',
+        'auth/wrong-password': 'The email or password is incorrect.',
+        'auth/too-many-requests': 'Too many attempts. Please try again later.',
+        'auth/network-request-failed': 'No internet connection. Check your network and try again.'
+      };
+      setErrorMessage(messages[error.code] || 'Unable to sign in. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   }
-
-  <sendEmail/>
   
   return(
     <React.Fragment>
-      <div className="sign-container">
-        <div className="logo-div">
-        <img src="brand.png" className="logo"/>
-          {/* <h1 className="logo">
-            PennyWise <span >FX</span>
-          </h1> */}
-        </div>
-
-        {/* form contents containers  */}
-
-        <div className="form-container">
-          <h3>Welcome back</h3>
-
-          {/* form div */}
+      <main className="auth-page">
+        <section className="auth-shell">
+          <aside className="auth-visual">
+            <div className="auth-brand"><img src="/brand.png" className="logo" alt="PennyWise FX" /></div>
+            <div className="auth-visual-copy">
+              <span className="eyebrow">PENNYWISE FX</span>
+              <h1>Trade with<br /><em>clarity.</em></h1>
+              <p>A smarter way to grow, track and manage your financial future.</p>
+            </div>
+            <div className="auth-stat"><strong>24/7</strong><span>Secure account access</span></div>
+          </aside>
+          <section className="form-container">
+            <div className="form-heading"><span className="eyebrow">WELCOME BACK</span><h2>Sign in to your account</h2><p>Enter your details to continue to your dashboard.</p></div>
+            {errorMessage && <div className="form-alert" role="alert">{errorMessage}</div>}
           <form onSubmit={handleSubmit(onSubmit)}>
             
             {/* Email input Section  */}
@@ -100,10 +91,9 @@ function SignInUser({ onLogin}){
                   type="email" 
                   name="email"
                   {...register("email", {required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/})}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="email@example.com"  
+                  placeholder="you@example.com"
+                  autoComplete="email"
                   className={errors.email ? 'input-error pl-3r' : 'pl-3r' }
-                  // name="user_email"
                 />
               </div>
               {errors.email && 
@@ -119,20 +109,16 @@ function SignInUser({ onLogin}){
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="icon">
                   <path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17l0 80c0 13.3 10.7 24 24 24l80 0c13.3 0 24-10.7 24-24l0-40 40 0c13.3 0 24-10.7 24-24l0-40 40 0c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/>
                 </svg>
-                <input type="password" 
-                  {...register("password", {required: true, minLength:6})}
-                  placeholder="Enter Password" 
-                  onChange={(e) => setPassword(e.target.value)}
+                <input type={showPassword ? 'text' : 'password'}
+                  {...register("password", {required: 'Password is required', minLength: { value: 6, message: 'Use at least 6 characters.' }})}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
                   className={errors.password ? 'pl-3r input-error' : 'pl-3r' }
-                  onInput={(e) => {
-                    if(e.target.value.length > 25){
-                      e.target.value = e.target.value.substring(0, 25)
-                    }
-                  }}
                 />
+                <button type="button" className="password-toggle" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? 'Hide password' : 'Show password'}>{showPassword ? 'Hide' : 'Show'}</button>
                 {errors.password && 
                 (<div className="error-msg">
-                  {errors.password.type === 'required' ? 'Password is required' : 'The password is too weak. It should be at least 6 characters.'}
+                  {errors.password.message}
                 </div>)}
               </div>
             </div>
@@ -147,7 +133,7 @@ function SignInUser({ onLogin}){
                 <a href="">Forgotten password?</a>
               </label>
             </div> */}
-              <button type="submit"  id="sign-in">Sign in</button>
+              <button type="submit" id="sign-in" disabled={isSubmitting}>{isSubmitting ? 'Signing in...' : 'Sign in'}</button>
           </form>
 
           <div className="already-have-act-div">
@@ -162,8 +148,9 @@ function SignInUser({ onLogin}){
           {/* <div className="copyright-div">
             <p>© Copyright 2024   Pennywise Trading FX   All Rights Reserved.</p>
           </div> */}
-        </div>
-      </div>
+        </section>
+        </section>
+      </main>
     </React.Fragment>
   )
 }
